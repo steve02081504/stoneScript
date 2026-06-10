@@ -1,0 +1,20 @@
+#layer orchestration
+import common
+import equip
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Bolesh ---
+
+export func FightBolesh(element)
+  ?Encounter_TryStrengthIfReady()
+    return
+  ?loc.stars >= 3
+    // state 32：Bolesh 危险帧；3 星以上优先 mind
+    ?EqMind(32, -1, mindTimeGte, true, true)
+      return
+    ?foe.distance <= closeRangeMax
+      EqDI(element)
+      return
+  EqXbow(element)

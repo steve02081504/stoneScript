@@ -1,0 +1,50 @@
+#layer orchestration
+import constants/combat
+import utils/distance
+import utils/item
+
+// --- 堕神之刃 smite（群怪收刀 + 地点时间窗门控）---
+
+const smiteTimeGateMin = 90
+const smiteTimeGateMax = 120
+export const smiteNormalMaxDist = 25
+
+func CanBladeSmite(minFoes, maxDist, allowBoss)
+  ?!allowBoss & foe = boss
+    return false
+  ?foe.count < minFoes
+    return false
+  ?foe = spawner
+    return false
+  ?maxDist > 0 & foe.distance > maxDist
+    return false
+  ?item.GetCount("blade of the fallen god") <= 0 & item.right ! blade of the fallen god
+    return false
+  ?!CdReady("blade")
+    return false
+  return true
+
+// 地点剩余时间在 [min,max] 秒时不触发，避免 smite 后来不及收尾
+func IsInSmiteTimeGateWindow()
+  ?loc.averageTime <= 0
+    return false
+  var secsLeft = (loc.averageTime - totaltime) / 30
+  return secsLeft <= smiteTimeGateMax & secsLeft >= smiteTimeGateMin
+
+func ShouldBladeSmite(minFoes, maxDist, allowBoss, skipTimeGate)
+  ?!CanBladeSmite(minFoes, maxDist, allowBoss)
+    return false
+  ?!skipTimeGate & IsInSmiteTimeGateWindow()
+    return false
+  return true
+
+export func BladeSmite(minFoes, maxDist, allowBoss, skipTimeGate)
+  ?CastR("blade of the fallen god")
+    ?FoeInactive() | FoeBeyondCloseRange()
+      return false
+    return true
+  ?!ShouldBladeSmite(minFoes, maxDist, allowBoss, skipTimeGate)
+    return false
+  equip blade of the fallen god
+  activate R
+  return true

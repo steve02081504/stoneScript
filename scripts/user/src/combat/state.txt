@@ -1,0 +1,24 @@
+#role facade
+#bridge mobility
+// --- 战斗模块帧状态（loop 每帧写入；mobility / routing / encounters 只读）---
+//
+// dedicatedCombatActive：本帧走定制遭遇（炸弹车 / Acronian / Boss），跳过泛用战斗链与部分移速
+// combatMobilityEnabled：false 时 mobility 跳过战斗移速（薄壳怪等 routing 限制换装）
+// dash/mindFreezeUntil：dash 或 mind 定身后的换装冷却（见 utils/item IsFrozen）
+// nagarajaSpitLandAt*：Nagaraja 吐息落地帧预测（encounters/nagaraja）
+
+export var dedicatedCombatActive = false
+export var combatMobilityEnabled = true
+
+export var dashFreezeUntil = -1
+export var mindFreezeUntil = -1
+
+export var nagarajaSpitLandAt = -1
+export var nagarajaQueuedSpitLandAt = -1
+
+// loc.begin 时重置可变遭遇/冻结计时（data.txt 静态查表不在此清）
+export func Combat_ResetLocState()
+  nagarajaSpitLandAt = -1
+  nagarajaQueuedSpitLandAt = -1
+  dashFreezeUntil = -1
+  mindFreezeUntil = -1

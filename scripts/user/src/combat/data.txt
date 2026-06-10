@@ -1,0 +1,57 @@
+#role facade
+// --- 战斗领域数据（查表 + 地点默认元素 + 遭遇标签）---
+//
+// 分区：
+//   遭遇标签 Combat_Is* / Combat_Skips*
+//   地点元素 LocElement（combat 包内私有，equip 旅行装调用）
+//   静态查表 const *Table / *Foes（debuff / dysangelos 等只读配置）
+
+// ===== 遭遇标签 =====
+
+export func Combat_IsAcronianFight()
+  return loc = temple & foe = acronian
+
+export func Combat_IsRockyDysangelosFight()
+  return loc = rocky & (foe = boss | foe = phase1 | foe = phase2 | foe = phase3)
+
+// bardiche 群杀不用于 Boss、圣殿 Acronian、岩石 Dysangelos 多阶段
+export func Combat_SkipsBardicheBurst()
+  return foe = boss | Combat_IsAcronianFight() | Combat_IsRockyDysangelosFight()
+
+// ===== 地点默认克制元素（combat 包内）=====
+
+// 地点默认克制元素（旅行装 EqMelee 等 fallback）
+func LocElement()
+  // 冰系地形
+  ?loc = cave | loc = temple
+    return "ice"
+  // 毒系 / 真菌
+  ?loc = fungus | loc = forest | loc = shroom
+    return "poison"
+  // 亡灵 / 墓穴
+  ?loc = crypt | loc = halls | loc = haunted | loc = hall | loc = undead
+    return "vigor"
+  // 矿洞 / 青铜
+  ?loc = mine | loc = bronze
+    return "aether"
+  // 雪地
+  ?loc = icy
+    return "fire"
+  return "vigor"
+
+// ===== 静态查表（构建时内联）=====
+
+export const dysangelosBuffTable = [["aether","vigor"],["fire","aether"],["vigor","poison"],["poison","ice"],["ice","fire"]]
+export const counterElements = ["vigor", "aether", "fire", "ice", "poison"]
+export const counterCounters = ["poison", "vigor", "aether", "fire", "ice"] // 顺时针克制环
+export const debuffSwordRows = [["damage","dP","damage"],["dot","dF","dot"],["chill","dI",""]]
+// bossDebuffThresholds 行: [debuff种类, 匹配标签, 血甲比例阈值]
+// 匹配标签: foe 名 | shroom（真菌系）| rocky（岩石地点）
+export const bossDebuffThresholds = [["damage","morel",0.25],["damage","yeti",0.15],["damage","rocky",0],["chill","morel",0.1],["chill","rocky",0.1],["dot","morel",0.1],["dot","yeti",0.15],["dot","pallas",0.05],["dot","rocky",0.05],["feeble","shroom",0.15],["feeble","rocky",0.15]]
+export const bossDebuffFullHpFoes = ["poena", "guardian", "nagaraja"]
+export const bossDebuffFullHpFeebleFoes = ["pallas"]
+export const bossDebuffFullHpNonDotFeebleFoes = ["bolesh", "pallas"]
+export const bossDebuffFullHpDotFoes = ["bolesh"]
+// bossDebuffAlwaysSkip: [kind, foe] — 无视血量阈值直接跳过
+export const bossDebuffAlwaysSkip = [["chill", "yeti"]]
+export const bossDebuffShroomFoes = ["bolesh", "morel", "yeti"]

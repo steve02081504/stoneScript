@@ -1,0 +1,8 @@
+import UI/MindstoneButton
+?hp < 7
+  activate potion
+?loc = caves
+  equipL sword
+  equipR shield
+  ?foe = boss
+    equip crossbow

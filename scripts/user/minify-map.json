@@ -1,0 +1,907 @@
+{
+  "frozen": [
+    "bestiaryDebug",
+    "bestiaryReset",
+    "finisherCooldown",
+    "finisherLastHitOnly",
+    "finisherWeapon",
+    "speedRun",
+    "useAutoPotion"
+  ],
+  "consts": {
+    "avgTimeExitRatio": "1.15",
+    "bardicheMinHpArmorMultiplier": "6",
+    "bombCartMindDist": "7",
+    "bossDebuffAlwaysSkip": "[[\"chill\", \"yeti\"]]",
+    "bossDebuffFullHpDotFoes": "[\"bolesh\"]",
+    "bossDebuffFullHpFeebleFoes": "[\"pallas\"]",
+    "bossDebuffFullHpFoes": "[\"poena\", \"guardian\", \"nagaraja\"]",
+    "bossDebuffFullHpNonDotFeebleFoes": "[\"bolesh\", \"pallas\"]",
+    "bossDebuffShroomFoes": "[\"bolesh\", \"morel\", \"yeti\"]",
+    "bossVampiricEquipDist": "8",
+    "brewResSurplusMin": "1500",
+    "cinderwispMinBestTimeSecs": "90",
+    "closeRangeMax": "10",
+    "counterCounters": "[\"poison\", \"vigor\", \"aether\", \"fire\", \"ice\"]",
+    "counterElements": "[\"vigor\", \"aether\", \"fire\", \"ice\", \"poison\"]",
+    "dashFreezeFrames": "60",
+    "dashRangeMax": "16",
+    "dashRangeMin": "11",
+    "debuffSwordRows": "[[\"damage\",\"dP\",\"damage\"],[\"dot\",\"dF\",\"dot\"],[\"chill\",\"dI\",\"\"]]",
+    "defensiveHpMin": "5",
+    "devourBossCount": "10",
+    "devourFoeCount": "3",
+    "elementRingSize": "5",
+    "fastArmorShieldMax": "14",
+    "finisherLastHitHpSum": "10",
+    "finisherRangeMax": "7",
+    "fireTalismanMinDist": "16",
+    "foeArmorThreshold": "50",
+    "harvestFoeMinDist": "18",
+    "harvestSwingDist": "7",
+    "healPotionHpThreshold": "7",
+    "hpBerserkRatio": "0.6",
+    "hpBossEquipLowRatio": "0.8",
+    "hpCleansingRatio": "0.5",
+    "hpDefensiveRatio": "0.7",
+    "hpExperienceRatio": "0.8",
+    "hpInvisibilityRatio": "0.3",
+    "hpLuckyRatio": "0.5",
+    "hpRetreatRatio": "0.75",
+    "hpVampiricRatio": "0.85",
+    "hpWandSwitchRatio": "0.7",
+    "hrimnirShovelMaxDist": "7",
+    "hrimnirShovelMinDist": "2",
+    "midRangeMax": "17",
+    "midRangeMin": "11",
+    "mindTimeEq": "1",
+    "mindTimeGt": "2",
+    "mindTimeGte": "0",
+    "nagarajaSpitDodgeMinFrames": "6",
+    "nagarajaSpitLeadFrames": "25",
+    "ouroborosHpRatio": "0.6",
+    "pickPocketThreshold": "3",
+    "pickupMobilityMaxDist": "10",
+    "selfDamageMax": "7",
+    "sightScanDist": "22",
+    "smiteMinFoes": "6",
+    "smiteNormalMaxDist": "25",
+    "smiteTimeGateMax": "120",
+    "smiteTimeGateMin": "90",
+    "splashMinFoes": "3",
+    "strengthPotionArmorDist": "15",
+    "thinShellArmorMin": "100",
+    "vampiricHpMin": "5"
+  },
+  "var_consts": {
+    "bossDebuffThresholds": "[[\"damage\",\"morel\",0.25],[\"damage\",\"yeti\",0.15],[\"damage\",\"rocky\",0],[\"chill\",\"morel\",0.1],[\"chill\",\"rocky\",0.1],[\"dot\",\"morel\",0.1],[\"dot\",\"yeti\",0.15],[\"dot\",\"pallas\",0.05],[\"dot\",\"rocky\",0.05],[\"feeble\",\"shroom\",0.15],[\"feeble\",\"rocky\",0.15]]",
+    "dysangelosBuffTable": "[[\"aether\",\"vigor\"],[\"fire\",\"aether\"],[\"vigor\",\"poison\"],[\"poison\",\"ice\"],[\"ice\",\"fire\"]]"
+  },
+  "const_strategies": {
+    "avgTimeExitRatio": "inline",
+    "bardicheMinHpArmorMultiplier": "inline",
+    "bombCartMindDist": "inline",
+    "bossDebuffAlwaysSkip": "inline",
+    "bossDebuffFullHpDotFoes": "inline",
+    "bossDebuffFullHpFeebleFoes": "inline",
+    "bossDebuffFullHpFoes": "inline",
+    "bossDebuffFullHpNonDotFeebleFoes": "inline",
+    "bossDebuffShroomFoes": "inline",
+    "bossDebuffThresholds": "var",
+    "bossVampiricEquipDist": "inline",
+    "brewResSurplusMin": "inline",
+    "cinderwispMinBestTimeSecs": "inline",
+    "closeRangeMax": "inline",
+    "counterCounters": "inline",
+    "counterElements": "inline",
+    "dashFreezeFrames": "inline",
+    "dashRangeMax": "inline",
+    "dashRangeMin": "inline",
+    "debuffSwordRows": "inline",
+    "defensiveHpMin": "inline",
+    "devourBossCount": "inline",
+    "devourFoeCount": "inline",
+    "dysangelosBuffTable": "var",
+    "elementRingSize": "inline",
+    "fastArmorShieldMax": "inline",
+    "finisherLastHitHpSum": "inline",
+    "finisherRangeMax": "inline",
+    "fireTalismanMinDist": "inline",
+    "foeArmorThreshold": "inline",
+    "harvestFoeMinDist": "inline",
+    "harvestSwingDist": "inline",
+    "healPotionHpThreshold": "inline",
+    "hpBerserkRatio": "inline",
+    "hpBossEquipLowRatio": "inline",
+    "hpCleansingRatio": "inline",
+    "hpDefensiveRatio": "inline",
+    "hpExperienceRatio": "inline",
+    "hpInvisibilityRatio": "inline",
+    "hpLuckyRatio": "inline",
+    "hpRetreatRatio": "inline",
+    "hpVampiricRatio": "inline",
+    "hpWandSwitchRatio": "inline",
+    "hrimnirShovelMaxDist": "inline",
+    "hrimnirShovelMinDist": "inline",
+    "midRangeMax": "inline",
+    "midRangeMin": "inline",
+    "mindTimeEq": "inline",
+    "mindTimeGt": "inline",
+    "mindTimeGte": "inline",
+    "nagarajaSpitDodgeMinFrames": "inline",
+    "nagarajaSpitLeadFrames": "inline",
+    "ouroborosHpRatio": "inline",
+    "pickPocketThreshold": "inline",
+    "pickupMobilityMaxDist": "inline",
+    "selfDamageMax": "inline",
+    "sightScanDist": "inline",
+    "smiteMinFoes": "inline",
+    "smiteNormalMaxDist": "inline",
+    "smiteTimeGateMax": "inline",
+    "smiteTimeGateMin": "inline",
+    "splashMinFoes": "inline",
+    "strengthPotionArmorDist": "inline",
+    "thinShellArmorMin": "inline",
+    "vampiricHpMin": "inline"
+  },
+  "globals": {
+    "Aac_Run": "fe",
+    "ActivateFeebleMask": "br",
+    "ActivateSightHand": "ca",
+    "BestiaryContains": "cm",
+    "BestiaryFoeKey": "df",
+    "Bestiary_Init": "dr",
+    "Bestiary_RunPhase": "cb",
+    "BladeSmite": "em",
+    "BossDebuffAlwaysSkip": "au",
+    "BossDebuffRotate": "cn",
+    "BossDebuffTagMatches": "av",
+    "BossDebuffThreshold": "be",
+    "BossSkipsDebuffAtFullHp": "r",
+    "BrewAtLocStart": "dg",
+    "BrewPotionType": "dh",
+    "BuffCount": "es",
+    "CanBladeSmite": "ds",
+    "CanEngage": "et",
+    "CastR": "fx",
+    "CdReady": "ff",
+    "Combat_IsAcronianFight": "ab",
+    "Combat_IsDedicatedEncounter": "f",
+    "Combat_ResetLocState": "aw",
+    "CounterElement": "di",
+    "DebuffBlockedByFoeState": "s",
+    "DebuffSword": "ec",
+    "DebugBestiary": "dt",
+    "Encounter_EquipDefaultRanged": "d",
+    "Encounter_TryCleansingIfDamagedAndLowHp": "a",
+    "Encounter_TryCleansingIfHeavy": "c",
+    "Encounter_TryStrengthIfReady": "e",
+    "EqDI": "fy",
+    "EqDpDi": "fs",
+    "EqDual": "ft",
+    "EqDualSh": "ez",
+    "EqMelee": "fg",
+    "EqMind": "fu",
+    "EqStaff": "fh",
+    "EqXbow": "fv",
+    "EquipBashLeftHammer": "bf",
+    "EquipBashShield": "cw",
+    "EquipBossFallback": "cc",
+    "EquipBossFallbackWeapons": "l",
+    "EquipCounterWandShield": "ac",
+    "EquipForMagicResistFoe": "ad",
+    "EquipForMagicVulnFoe": "ax",
+    "EquipForPhysicalImmuneFoe": "i",
+    "EquipForRangedImmuneFoe": "t",
+    "EquipForThinShellFoe": "ay",
+    "EquipHammerShield": "cd",
+    "EquipHeavyHammer": "co",
+    "EquipMagicVulnBonus": "bg",
+    "EquipMindFreeze": "cx",
+    "EquipSightHand": "dj",
+    "EquipSpitDodge": "dk",
+    "EquipVigorMeleeOrCrossbow": "j",
+    "EquipWithDashFreeze": "bh",
+    "FastArmorShield": "cy",
+    "FightAcronian": "du",
+    "FightBolesh": "ed",
+    "FightBombCart": "dv",
+    "FightCeiling": "dz",
+    "FightDysangelos": "cz",
+    "FightDysangelosPhase1": "ag",
+    "FightDysangelosPhase2": "ah",
+    "FightDysangelosPhase3": "aj",
+    "FightEpic": "eu",
+    "FightGuardian": "dw",
+    "FightHrimnir": "ea",
+    "FightMorel": "en",
+    "FightNagaraja": "dx",
+    "FightPallas": "ee",
+    "FightPoena": "eo",
+    "FightShroom": "ef",
+    "FightXyloalgia": "dl",
+    "FoeBeyondCloseRange": "bi",
+    "FoeBeyondMidRange": "ce",
+    "FoeGone": "fi",
+    "FoeHpArmorRatio": "da",
+    "FoeInMeleeApproachRange": "u",
+    "FoeInactive": "eg",
+    "FoeIsOneOf": "ep",
+    "FoeTimeMatches": "dm",
+    "FoeWithinCloseRange": "bj",
+    "GenericEquip": "eb",
+    "GetHealingPotionByRes": "ak",
+    "Harvest_Run": "eh",
+    "Harvest_ShouldRun": "cf",
+    "HpAbove": "fj",
+    "HpBelow": "fk",
+    "HpRatio": "fl",
+    "IsBombCartEncounter": "bk",
+    "IsFlyingFoe": "ei",
+    "IsFrozen": "fa",
+    "IsHandSightCasting": "bs",
+    "IsHoldingTravelSwapWeapon": "k",
+    "IsInSmiteTimeGateWindow": "v",
+    "IsSightOnHand": "dy",
+    "IsThinShellFoe": "dn",
+    "IsWeaponCasting": "db",
+    "LocElement": "eq",
+    "Loop_InitOnLocBegin": "bl",
+    "Loop_RefreshCombatFlags": "w",
+    "Mobility_RunCombatPhase": "x",
+    "Mobility_RunPickupPhase": "y",
+    "Nagaraja_OnSpitWindup": "al",
+    "Nagaraja_SyncQueuedSpitLand": "g",
+    "Nagaraja_TrySpitDodge": "am",
+    "NeedsBestiaryScan": "cg",
+    "OuroborosEquipOk": "cp",
+    "Potion_HasOffenseOn": "bm",
+    "RunAuto": "fm",
+    "RunBossEncounter": "cq",
+    "RunCombatFrame": "do",
+    "RunCombatMobility": "ch",
+    "RunGenericCombatPath": "az",
+    "RunTravelIfSmiteSheathed": "m",
+    "RunTravelMobility": "ci",
+    "ShouldAttemptCombatMobility": "h",
+    "ShouldBladeSmite": "cr",
+    "ShouldForceReequip": "bt",
+    "ShouldSkipRanged": "cs",
+    "SightHandJustScanned": "ba",
+    "SkipBossDebuff": "dp",
+    "SkipDebuff": "er",
+    "Travel_RefreshTags": "bu",
+    "Travel_SwapToTravelGear": "z",
+    "Travel_TryDashToFoe": "bn",
+    "Travel_TryForwardDash": "an",
+    "Travel_TryStarMobility": "ae",
+    "Travel_TryTravelMobility": "n",
+    "TryBestiaryScan": "dc",
+    "TryBossBashOrDebuffSword": "o",
+    "TryBossEngagePotions": "bb",
+    "TryBossTraitEquip": "cj",
+    "TryCleansingPotion": "bv",
+    "TryDedicatedEncounter": "ao",
+    "TryDefensivePotion": "bw",
+    "TryEarlyCombatTravelSwap": "p",
+    "TryEquipForFoeTraits": "bc",
+    "TryExperiencePotion": "bo",
+    "TryHarvestTool": "dq",
+    "TryHealingPotion": "ct",
+    "TryHeavyHammerActivate": "af",
+    "TryInvisibilityPotion": "ap",
+    "TryLogFoe": "ev",
+    "TryLowHpMindRetreat": "bp",
+    "TryNamedBossEncounter": "aq",
+    "TryNamedBossFungus": "bx",
+    "TryNamedBossMisc": "cu",
+    "TryNamedBossSerpentAndGuardian": "b",
+    "TryOffensePotion": "cv",
+    "TryQuarterstaffActivate": "aa",
+    "TrySightScanOnHand": "by",
+    "TryVampiricPotion": "ck",
+    "bestiary": "fb",
+    "bestiaryKey": "ej",
+    "bossDebuffThresholds": "bd",
+    "bronzeRes": "ew",
+    "buffParts": "ex",
+    "buffStrings": "ek",
+    "combatMobilityEnabled": "ar",
+    "counter": "fn",
+    "dashFreezeUntil": "dd",
+    "dedicatedCombatActive": "as",
+    "diSword": "fo",
+    "dpSword": "fp",
+    "dysangelosBuffTable": "bq",
+    "el": "fz",
+    "element": "fq",
+    "foeKey": "fw",
+    "mindFreezeUntil": "de",
+    "nagarajaQueuedSpitLandAt": "q",
+    "nagarajaSpitLandAt": "bz",
+    "secsLeft": "fc",
+    "sh": "ga",
+    "stoneRes": "fd",
+    "threshold": "ey",
+    "travelNeedsWeaponSwap": "at",
+    "travelSmiteSheath": "cl",
+    "woodRes": "fr"
+  },
+  "params": [
+    {
+      "function": "CdReady",
+      "minified": "CdReady",
+      "params": {
+        "cdKey": "a"
+      }
+    },
+    {
+      "function": "CastR",
+      "minified": "CastR",
+      "params": {
+        "itemName": "a"
+      }
+    },
+    {
+      "function": "IsFrozen",
+      "minified": "IsFrozen",
+      "params": {
+        "until": "a"
+      }
+    },
+    {
+      "function": "CanBladeSmite",
+      "minified": "CanBladeSmite",
+      "params": {
+        "allowBoss": "c",
+        "maxDist": "b",
+        "minFoes": "a"
+      }
+    },
+    {
+      "function": "ShouldBladeSmite",
+      "minified": "ShouldBladeSmite",
+      "params": {
+        "allowBoss": "c",
+        "maxDist": "b",
+        "minFoes": "a",
+        "skipTimeGate": "d"
+      }
+    },
+    {
+      "function": "BladeSmite",
+      "minified": "BladeSmite",
+      "params": {
+        "allowBoss": "c",
+        "maxDist": "b",
+        "minFoes": "a",
+        "skipTimeGate": "d"
+      }
+    },
+    {
+      "function": "BuffCount",
+      "minified": "BuffCount",
+      "params": {
+        "kind": "a",
+        "src": "b"
+      }
+    },
+    {
+      "function": "HpBelow",
+      "minified": "HpBelow",
+      "params": {
+        "ratio": "a"
+      }
+    },
+    {
+      "function": "HpAbove",
+      "minified": "HpAbove",
+      "params": {
+        "ratio": "a"
+      }
+    },
+    {
+      "function": "EquipWithDashFreeze",
+      "minified": "EquipWithDashFreeze",
+      "params": {
+        "itemName": "a"
+      }
+    },
+    {
+      "function": "EquipMindFreeze",
+      "minified": "EquipMindFreeze",
+      "params": {
+        "setMindFreezeToo": "a"
+      }
+    },
+    {
+      "function": "EquipBashLeftHammer",
+      "minified": "EquipBashLeftHammer",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EqMelee",
+      "minified": "EqMelee",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EqXbow",
+      "minified": "EqXbow",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EqStaff",
+      "minified": "EqStaff",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EquipCounterWandShield",
+      "minified": "EquipCounterWandShield",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EqDpDi",
+      "minified": "EqDpDi",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EqDI",
+      "minified": "EqDI",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EqDual",
+      "minified": "EqDual",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EqDualSh",
+      "minified": "EqDualSh",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FoeTimeMatches",
+      "minified": "FoeTimeMatches",
+      "params": {
+        "minTime": "a",
+        "timeMode": "b"
+      }
+    },
+    {
+      "function": "EqMind",
+      "minified": "EqMind",
+      "params": {
+        "minTime": "b",
+        "requireMindReady": "d",
+        "setMindFreezeToo": "e",
+        "state": "a",
+        "timeMode": "c"
+      }
+    },
+    {
+      "function": "EquipHeavyHammer",
+      "minified": "EquipHeavyHammer",
+      "params": {
+        "tryActivate": "a"
+      }
+    },
+    {
+      "function": "EquipMagicVulnBonus",
+      "minified": "EquipMagicVulnBonus",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryOffensePotion",
+      "minified": "TryOffensePotion",
+      "params": {
+        "condition": "b",
+        "potId": "a"
+      }
+    },
+    {
+      "function": "FoeIsOneOf",
+      "minified": "FoeIsOneOf",
+      "params": {
+        "names": "a"
+      }
+    },
+    {
+      "function": "BossDebuffTagMatches",
+      "minified": "BossDebuffTagMatches",
+      "params": {
+        "tag": "a"
+      }
+    },
+    {
+      "function": "BossDebuffThreshold",
+      "minified": "BossDebuffThreshold",
+      "params": {
+        "kind": "a"
+      }
+    },
+    {
+      "function": "BossSkipsDebuffAtFullHp",
+      "minified": "BossSkipsDebuffAtFullHp",
+      "params": {
+        "kind": "a"
+      }
+    },
+    {
+      "function": "SkipDebuff",
+      "minified": "SkipDebuff",
+      "params": {
+        "kind": "a"
+      }
+    },
+    {
+      "function": "BossDebuffAlwaysSkip",
+      "minified": "BossDebuffAlwaysSkip",
+      "params": {
+        "kind": "a"
+      }
+    },
+    {
+      "function": "SkipBossDebuff",
+      "minified": "SkipBossDebuff",
+      "params": {
+        "kind": "a"
+      }
+    },
+    {
+      "function": "DebuffSword",
+      "minified": "DebuffSword",
+      "params": {
+        "element": "a",
+        "kind": "b",
+        "skipIfFoeHasDebuff": "d",
+        "swordPrefix": "c"
+      }
+    },
+    {
+      "function": "ActivateFeebleMask",
+      "minified": "ActivateFeebleMask",
+      "params": {
+        "bossOnly": "a",
+        "returnOnSuccess": "b"
+      }
+    },
+    {
+      "function": "BossDebuffRotate",
+      "minified": "BossDebuffRotate",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EquipForMagicResistFoe",
+      "minified": "EquipForMagicResistFoe",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EquipForPhysicalImmuneFoe",
+      "minified": "EquipForPhysicalImmuneFoe",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EquipForMagicVulnFoe",
+      "minified": "EquipForMagicVulnFoe",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EquipForRangedImmuneFoe",
+      "minified": "EquipForRangedImmuneFoe",
+      "params": {
+        "allowOuroboros": "b",
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryEquipForFoeTraits",
+      "minified": "TryEquipForFoeTraits",
+      "params": {
+        "allowOuroboros": "b",
+        "element": "a"
+      }
+    },
+    {
+      "function": "EquipForThinShellFoe",
+      "minified": "EquipForThinShellFoe",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "GenericEquip",
+      "minified": "GenericEquip",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightAcronian",
+      "minified": "FightAcronian",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "Encounter_TryCleansingIfHeavy",
+      "minified": "Encounter_TryCleansingIfHeavy",
+      "params": {
+        "threshold": "a"
+      }
+    },
+    {
+      "function": "Encounter_EquipDefaultRanged",
+      "minified": "Encounter_EquipDefaultRanged",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightBolesh",
+      "minified": "FightBolesh",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightCeiling",
+      "minified": "FightCeiling",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightEpic",
+      "minified": "FightEpic",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightEpic",
+      "minified": "FightEpic",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightHrimnir",
+      "minified": "FightHrimnir",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightMorel",
+      "minified": "FightMorel",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightNagaraja",
+      "minified": "FightNagaraja",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightPallas",
+      "minified": "FightPallas",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightPoena",
+      "minified": "FightPoena",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightEpic",
+      "minified": "FightEpic",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightShroom",
+      "minified": "FightShroom",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightEpic",
+      "minified": "FightEpic",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "FightXyloalgia",
+      "minified": "FightXyloalgia",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryDedicatedEncounter",
+      "minified": "TryDedicatedEncounter",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryBossTraitEquip",
+      "minified": "TryBossTraitEquip",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryBossBashOrDebuffSword",
+      "minified": "TryBossBashOrDebuffSword",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EquipBossFallbackWeapons",
+      "minified": "EquipBossFallbackWeapons",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "EquipBossFallback",
+      "minified": "EquipBossFallback",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryNamedBossSerpentAndGuardian",
+      "minified": "TryNamedBossSerpentAndGuardian",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryNamedBossFungus",
+      "minified": "TryNamedBossFungus",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryNamedBossMisc",
+      "minified": "TryNamedBossMisc",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "TryNamedBossEncounter",
+      "minified": "TryNamedBossEncounter",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "RunBossEncounter",
+      "minified": "RunBossEncounter",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "RunGenericCombatPath",
+      "minified": "RunGenericCombatPath",
+      "params": {
+        "element": "a"
+      }
+    },
+    {
+      "function": "BrewPotionType",
+      "minified": "BrewPotionType",
+      "params": {
+        "potion": "a"
+      }
+    },
+    {
+      "function": "Bestiary_Init",
+      "minified": "Bestiary_Init",
+      "params": {
+        "isLocStart": "a"
+      }
+    },
+    {
+      "function": "BestiaryContains",
+      "minified": "BestiaryContains",
+      "params": {
+        "id": "a"
+      }
+    },
+    {
+      "function": "IsSightOnHand",
+      "minified": "IsSightOnHand",
+      "params": {
+        "useRightHand": "a"
+      }
+    },
+    {
+      "function": "IsHandSightCasting",
+      "minified": "IsHandSightCasting",
+      "params": {
+        "useRightHand": "a"
+      }
+    },
+    {
+      "function": "SightHandJustScanned",
+      "minified": "SightHandJustScanned",
+      "params": {
+        "useRightHand": "a"
+      }
+    },
+    {
+      "function": "EquipSightHand",
+      "minified": "EquipSightHand",
+      "params": {
+        "useRightHand": "a"
+      }
+    },
+    {
+      "function": "ActivateSightHand",
+      "minified": "ActivateSightHand",
+      "params": {
+        "useRightHand": "a"
+      }
+    },
+    {
+      "function": "TrySightScanOnHand",
+      "minified": "TrySightScanOnHand",
+      "params": {
+        "useRightHand": "a"
+      }
+    },
+    {
+      "function": "TryHarvestTool",
+      "minified": "TryHarvestTool",
+      "params": {
+        "cdKey": "b",
+        "useHatchet": "a"
+      }
+    }
+  ]
+}

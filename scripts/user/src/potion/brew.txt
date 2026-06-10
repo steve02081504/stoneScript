@@ -1,0 +1,66 @@
+#role facade
+// ---------------------------------------------------------------------------
+// 模块：炼制（仅 brew 配方，不含战斗数据）
+// ---------------------------------------------------------------------------
+
+func BrewPotionType(potion)
+  ?potion = "experience"
+    brew wood
+    return
+  ?potion = "strength"
+    brew stone
+    return
+  ?potion = "healing"
+    brew tar
+    return
+  ?potion = "lightning"
+    brew bronze
+    return
+  ?potion = "invisibility"
+    brew wood + stone
+    return
+  ?potion = "cleansing"
+    brew wood + tar
+    return
+  ?potion = "berserk"
+    brew wood + bronze
+    return
+  ?potion = "defensive"
+    brew stone + tar
+    return
+  ?potion = "lucky"
+    brew stone + bronze
+    return
+  ?potion = "vampiric"
+    brew tar + bronze
+    return
+
+const brewResSurplusMin = 1500 // 任一资源超过此值则优先炼对应副产物药水
+
+func GetHealingPotionByRes()
+  // 按 stone / bronze / wood 存量选副产物药水；均不足时退化为 healing
+  var stoneRes = res.stone
+  var bronzeRes = res.bronze
+  var woodRes = res.wood
+  ?stoneRes > brewResSurplusMin | (stoneRes > woodRes & stoneRes > bronzeRes)
+    return "defensive"
+  ?bronzeRes > brewResSurplusMin | (bronzeRes > stoneRes & bronzeRes > woodRes)
+    return "vampiric"
+  ?woodRes > brewResSurplusMin | (woodRes > stoneRes & woodRes > bronzeRes)
+    return "cleansing"
+  return "healing"
+
+// 空瓶且 loc.begin 时炼制；地点特化优先，否则按资源选治疗系
+export func BrewAtLocStart()
+  ?item.potion ! empty
+    return
+  ?loc = mine | loc = bronze
+    BrewPotionType("strength")
+    return
+  ?loc = icy
+    BrewPotionType("lucky")
+    return
+  ?loc = temple
+    BrewPotionType("berserk")
+    return
+  BrewPotionType(GetHealingPotionByRes())

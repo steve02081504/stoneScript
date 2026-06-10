@@ -1,0 +1,48 @@
+#layer util
+import constants/distance
+
+// --- 距离带查询（阈值见 constants/distance）---
+//
+// 带域示意（格）：
+//   close  ≤10
+//   mid    11–17（midRangeMin..midRangeMax）
+//   dash   11–16（dashRangeMin..dashRangeMax，中距子集）
+//   sight  扫描 ≤22
+
+export func FoeWithinCloseRange()
+  return foe.distance <= closeRangeMax
+
+export func FoeBeyondCloseRange()
+  return foe.distance > closeRangeMax
+
+// 贴脸近战区（< midRangeMin，Boss  bash / 溅射等共用）
+export func FoeInMeleeApproachRange()
+  return foe.distance < midRangeMin
+
+export func FoeWithinMidRange()
+  return foe.distance > closeRangeMax & foe.distance <= midRangeMax
+
+export func FoeBeyondMidRange()
+  return foe.distance > midRangeMax
+
+export func FoeInDashBand()
+  return foe.distance >= dashRangeMin & foe.distance <= dashRangeMax
+
+// 中距交战带：已过 dash 上限但仍在中距内（mobility 交还给近战）
+export func FoeInMidEngageBand()
+  return foe.distance > dashRangeMax & foe.distance <= midRangeMax
+
+export func FoeGone()
+  return foe = undamageable | (foe.hp <= 0 & foe.armor <= 0)
+
+export func FoeInactive()
+  return foe.state = 0 | FoeGone()
+
+export func IsFlyingFoe()
+  return foe = flying | foe = mosquito
+
+export func ShouldSkipRanged()
+  return foe = immune_to_ranged | FoeInactive()
+
+export func CanEngage()
+  return !FoeInactive() & foe.state > 1

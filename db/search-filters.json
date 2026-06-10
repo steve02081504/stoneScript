@@ -1,0 +1,40 @@
+{
+  "entries": [
+    {
+      "id": "boss",
+      "category": "foe-trait",
+      "example": "?foe=boss",
+      "syntax": "boss",
+      "summary_zh": "BOSS敌人"
+    },
+    {
+      "id": "insect",
+      "category": "foe-type",
+      "example": "?foe=insect",
+      "syntax": "insect",
+      "summary_zh": "昆虫类"
+    },
+    {
+      "id": "star",
+      "category": "numeric",
+      "example": "equip hammer *7 D",
+      "syntax": "*N",
+      "summary_zh": "N星(地点或物品)"
+    },
+    {
+      "id": "enchant",
+      "category": "numeric",
+      "example": "equip vigor staff +13",
+      "syntax": "+N",
+      "summary_zh": "+N附魔(仅物品)"
+    },
+    {
+      "id": "subtract",
+      "category": "equip",
+      "example": "poison sword *10 -big",
+      "syntax": "-criteria",
+      "summary_zh": "排除条件"
+    }
+  ],
+  "version": "manual-4.27.1"
+}

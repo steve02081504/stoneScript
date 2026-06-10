@@ -1,0 +1,85 @@
+{
+  "entries": [
+    {
+      "example": "?item.CanActivate()",
+      "syntax": "item.CanActivate()",
+      "summary_zh": "全局是否可激活能力",
+      "category": "item",
+      "manualAnchor": "#native-functions",
+      "id": "item.CanActivate"
+    },
+    {
+      "example": "?item.CanActivate(\"bardiche\")",
+      "syntax": "item.CanActivate(str)",
+      "summary_zh": "特定武器是否可激活",
+      "category": "item",
+      "manualAnchor": "#native-functions",
+      "id": "item.CanActivate.item"
+    },
+    {
+      "example": "?item.GetCooldown(\"bardiche\") <= 0",
+      "syntax": "item.GetCooldown(str)",
+      "summary_zh": "能力剩余冷却帧，无效ID返回-1",
+      "category": "item",
+      "manualAnchor": "#ability_ids",
+      "id": "item.GetCooldown"
+    },
+    {
+      "example": "x = string.Size(name) / -2",
+      "syntax": "string.Size(str)",
+      "summary_zh": "字符串长度",
+      "category": "string",
+      "manualAnchor": "#native-functions",
+      "id": "string.Size"
+    },
+    {
+      "example": "?loc.begin\n  music.Play(temple_0)",
+      "syntax": "music.Play(track)",
+      "summary_zh": "播放音乐曲目",
+      "category": "music",
+      "manualAnchor": "#music",
+      "id": "music.Play"
+    },
+    {
+      "example": "ambient.Add(ambient_crypt)",
+      "syntax": "ambient.Add(id)",
+      "summary_zh": "添加环境音层(最多4层)",
+      "category": "ambient",
+      "manualAnchor": "#ambient",
+      "id": "ambient.Add"
+    },
+    {
+      "example": "?loc.begin\n  ambient.Stop()",
+      "syntax": "ambient.Stop()",
+      "summary_zh": "清除所有环境音层",
+      "category": "ambient",
+      "manualAnchor": "#ambient",
+      "id": "ambient.Stop"
+    },
+    {
+      "example": "var t = file.Read(\"data.txt\")",
+      "syntax": "file.Read(path)",
+      "summary_zh": "读取Stonescript目录下文件",
+      "category": "file",
+      "manualAnchor": "#native-functions",
+      "id": "file.Read"
+    },
+    {
+      "example": "sys.SetFileUrl(remote)",
+      "syntax": "sys.SetFileUrl(url)",
+      "summary_zh": "设置import远程源(仅心智石)",
+      "category": "sys",
+      "manualAnchor": "#native-functions",
+      "id": "sys.SetFileUrl"
+    },
+    {
+      "example": "var bn = math.BigNumber(12)",
+      "syntax": "math.BigNumber(n)",
+      "summary_zh": "创建大数对象",
+      "category": "math",
+      "manualAnchor": "#native-functions",
+      "id": "math.BigNumber"
+    }
+  ],
+  "version": "manual-4.27.1"
+}

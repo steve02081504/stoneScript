@@ -1,0 +1,29 @@
+#layer orchestration
+import abilities/smite
+import equip
+import potion/use
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Poena ---
+
+export func FightPoena(element)
+  ?debuffs.string ! stun & foe.state ! 2
+    ?TryOffensePotion(Strength, true)
+      return
+  ?foe.buffs.string = mirror & loc.stars >= 3
+    ?CdReady("wand_vigor")
+      equip reset wand
+      activate R
+      return
+  ?BladeSmite(3, 0, true, true)
+    return
+  ?loc.stars >= 3 & item.GetCount("stone hammer") > 0
+    equipL stone hammer
+    equipR stone hammer
+    return
+  ?EquipBashLeftHammer("")
+    return
+  equip grap
+  equip hammer

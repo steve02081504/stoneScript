@@ -1,0 +1,83 @@
+#role facade
+#bridge mobility
+import state
+import constants/combat
+import toggles
+import utils/distance
+import utils/item
+
+// --- 旅行换装 / dash 原语（combat 包内共享；mobility 跨包桥接）---
+//
+// RefreshTags 由 loop 在战斗前调用，缓存本帧 smite 收刀与换装需求，
+// 供 routing 与 mobility 读到一致值。
+
+export var travelNeedsWeaponSwap = false
+export var travelSmiteSheath = false
+
+// 右手持战斗大件 / 弩时需先换回旅行装或 dash 链
+func IsHoldingTravelSwapWeapon()
+  ?item.right ! empty
+    return item.right = bardiche | item.right = heavy hammer | item.right = quarterstaff | item.right = blade of the fallen god | item.right = crossbow
+  return false
+
+export func Travel_RefreshTags()
+  travelSmiteSheath = false
+  ?item.right ! empty & item.right = blade of the fallen god & foe
+    travelSmiteSheath = FoeInactive() | FoeBeyondCloseRange() | foe.count < smiteMinFoes
+  travelNeedsWeaponSwap = IsHoldingTravelSwapWeapon()
+  ?!travelNeedsWeaponSwap
+    travelNeedsWeaponSwap = IsWeaponCasting()
+
+// 竞速且群怪过多时不 dash，避免打乱节奏
+func SpeedRunBlocksDash()
+  return speedRun & foe & foe.count >= 10
+
+func CanUseDashNow()
+  return !IsFrozen(dashFreezeUntil) & !IsFrozen(mindFreezeUntil) & !SpeedRunBlocksDash()
+
+func TryQuarterstaffActivate()
+  ?item.GetCount("quarterstaff") <= 0
+    return false
+  ?item.right = quarterstaff & item.right.state = 2
+    equip quarterstaff
+    activate R
+    return true
+  ?CdReady("quarterstaff")
+    equip quarterstaff
+    activate R
+    return true
+  return false
+
+export func Travel_TryStarMobility()
+  ?item.GetCount("star") > 0
+    equipL star
+    return true
+  return false
+
+export func Travel_TryDashToFoe()
+  ?!CanUseDashNow() | item.GetCount("dashing") <= 0
+    return false
+  equipR dashing
+  Travel_TryStarMobility()
+  return true
+
+export func Travel_TryForwardDash()
+  ?TryQuarterstaffActivate()
+    return true
+  return false
+
+export func Travel_TryTravelMobility()
+  ?Travel_TryForwardDash()
+    return true
+  return Travel_TryStarMobility()
+
+export func Travel_SwapToTravelGear()
+  ?!travelNeedsWeaponSwap
+    return false
+  ?Travel_TryForwardDash()
+    return true
+  ?Travel_TryDashToFoe()
+    return true
+  ?Travel_TryStarMobility()
+    return true
+  return false

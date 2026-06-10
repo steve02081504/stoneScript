@@ -1,0 +1,7 @@
+#layer orchestration
+import common
+
+// --- Enoki ---
+
+export func FightEnoki(element)
+  Encounter_EquipDefaultRanged(element)

@@ -1,0 +1,7 @@
+#layer orchestration
+import common
+
+// --- Snail ---
+
+export func FightSnail(element)
+  Encounter_EquipDefaultRanged(element)

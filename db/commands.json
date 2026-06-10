@@ -1,0 +1,150 @@
+{
+  "entries": [
+    {
+      "example": "equip vigor crossbow *8 +5",
+      "syntax": "equip (str)",
+      "summary_zh": "装备物品(双手武器)",
+      "doc": "docs/reference/commands.md",
+      "seeAlso": [
+        "equipL",
+        "equipR"
+      ],
+      "source": "manual:Commands",
+      "id": "equip"
+    },
+    {
+      "example": "equipL poison d_sword",
+      "syntax": "equipL (str)",
+      "summary_zh": "装备左手",
+      "doc": "docs/reference/commands.md",
+      "seeAlso": [
+        "equip"
+      ],
+      "source": "manual:Commands",
+      "id": "equipL"
+    },
+    {
+      "example": "equipR vigor shield",
+      "syntax": "equipR (str)",
+      "summary_zh": "装备右手",
+      "doc": "docs/reference/commands.md",
+      "seeAlso": [
+        "equip"
+      ],
+      "source": "manual:Commands",
+      "id": "equipR"
+    },
+    {
+      "example": "activate R",
+      "syntax": "activate (ability)",
+      "summary_zh": "激活能力",
+      "doc": "docs/patterns/abilities.md",
+      "seeAlso": [
+        "item.CanActivate"
+      ],
+      "source": "manual:Commands",
+      "id": "activate"
+    },
+    {
+      "example": "?loc=caves\n  loadout 1",
+      "syntax": "loadout (n)",
+      "summary_zh": "装备预设loadout",
+      "doc": "docs/reference/commands.md",
+      "seeAlso": [],
+      "source": "manual:Commands",
+      "id": "loadout"
+    },
+    {
+      "example": ">HP=@hp@",
+      "syntax": "> (str)",
+      "summary_zh": "屏幕打印",
+      "doc": "docs/debugging.md",
+      "seeAlso": [
+        "print-advanced"
+      ],
+      "source": "manual:Commands",
+      "id": "print"
+    },
+    {
+      "example": ">\u0000,1,#red,Foe @foe.state@",
+      "syntax": ">X,Y,[#color,](str)",
+      "summary_zh": "固定坐标彩色打印",
+      "doc": "docs/reference/commands.md",
+      "seeAlso": [
+        "print"
+      ],
+      "source": "manual:Commands",
+      "id": "print-advanced"
+    },
+    {
+      "example": "var i = 0",
+      "syntax": "var (name) = (value)",
+      "summary_zh": "声明变量",
+      "doc": "docs/reference/variables.md",
+      "seeAlso": [],
+      "source": "manual:Commands",
+      "id": "var"
+    },
+    {
+      "example": "func Greet(n)\n  >@n@",
+      "syntax": "func Name(args)",
+      "summary_zh": "声明函数",
+      "doc": "docs/reference/functions.md",
+      "seeAlso": [],
+      "source": "manual:Commands",
+      "id": "func"
+    },
+    {
+      "example": "import UI/MindstoneButton",
+      "syntax": "import (script)",
+      "summary_zh": "加载外部脚本单例",
+      "doc": "docs/getting-started.md",
+      "seeAlso": [
+        "new"
+      ],
+      "source": "manual:Commands",
+      "id": "import"
+    },
+    {
+      "example": "var v = new Components/Vector",
+      "syntax": "new (script)",
+      "summary_zh": "创建脚本独立副本",
+      "doc": "docs/reference/loops-arrays.md",
+      "seeAlso": [
+        "import"
+      ],
+      "source": "manual:Commands",
+      "id": "new"
+    },
+    {
+      "example": "?loc.begin\n  brew bronze + tar",
+      "syntax": "brew (ingredients)",
+      "summary_zh": "地点开始时调配药水",
+      "doc": "docs/reference/commands.md",
+      "seeAlso": [],
+      "source": "manual:Commands",
+      "id": "brew"
+    },
+    {
+      "example": "play unequip",
+      "syntax": "play (sound) (pitch)",
+      "summary_zh": "播放音效",
+      "doc": "docs/reference/commands.md",
+      "seeAlso": [],
+      "source": "manual:Commands",
+      "id": "play"
+    },
+    {
+      "example": "disable hud ru",
+      "syntax": "disable hud (opts)",
+      "summary_zh": "隐藏HUD",
+      "doc": "docs/reference/commands.md",
+      "seeAlso": [
+        "enable-hud"
+      ],
+      "source": "manual:Commands",
+      "id": "disable-hud"
+    }
+  ],
+  "version": "manual-4.27.1"
+}

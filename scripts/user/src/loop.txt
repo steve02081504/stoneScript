@@ -1,0 +1,71 @@
+#role orchestrator
+#consumer speedrun
+import toggles
+import aac
+import combat/data
+import combat/state
+import combat/routing
+import combat/dedicated
+import combat/generic
+import combat/travel
+import potion/brew
+import potion/use
+import bestiary
+import harvest
+import mobility
+import constants/speedrun
+
+// ---------------------------------------------------------------------------
+// 主循环（薄编排，每帧自上而下短路）
+//   AAC → 地点初始化
+//   战斗 flag / 移速 tag
+//   图鉴（竞速跳过；远距先追怪移速）
+//   采集（竞速跳过）→ 战斗移速 → 战斗 → 拾取移速 → 旅行移速
+//   末尾自动药水
+// ---------------------------------------------------------------------------
+
+func Loop_InitOnLocBegin()
+  Combat_ResetLocState()
+  BrewAtLocStart()
+  Bestiary_Init(true)
+
+// 写入 combat/state 帧标志，供 routing / mobility 只读
+func Loop_RefreshCombatFlags()
+  dedicatedCombatActive = Combat_IsDedicatedEncounter()
+  combatMobilityEnabled = !IsThinShellFoe()
+
+// --- 地点初始化（loc.begin 全量重置；loc.loop 仅刷新图鉴）---
+?loc.begin | loc.loop
+  ?loc.begin
+    Loop_InitOnLocBegin()
+  :
+    Bestiary_Init(false)
+
+// --- 全局 AAC + 本帧战斗/移速 flag ---
+Aac_Run()
+Loop_RefreshCombatFlags()
+Travel_RefreshTags()
+
+?SpeedRun_ShouldAutoLeave()
+  loc.Leave()
+
+// --- 图鉴（竞速跳过；远距未扫怪先追怪移速）---
+? !speedRun
+  Bestiary_RunPhase()
+  ?Bestiary_NeedsChase()
+    Mobility_RunCombatPhase()
+
+// --- 采集 → 战斗移速 → 战斗 → 拾取 → 旅行（图鉴扫描中阻塞）---
+? !Bestiary_IsBlocking()
+  ? !speedRun
+    ?Harvest_ShouldRun()
+      Harvest_Run()
+  Mobility_RunCombatPhase()
+  ?foe
+    RunCombatFrame()
+  Mobility_RunPickupPhase()
+  Mobility_RunTravelPhase()
+
+// --- 末尾自动药水 ---
+? useAutoPotion
+  RunAuto()

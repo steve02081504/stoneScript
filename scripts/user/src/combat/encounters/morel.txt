@@ -1,0 +1,16 @@
+#layer orchestration
+import equip
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Morel ---
+
+export func FightMorel(element)
+  ?foe.armor > 0
+    EquipHeavyHammer(false)
+    return
+  ?foe.maxarmor > 0 & FoeInMeleeApproachRange()
+    ?EquipBashLeftHammer("")
+      return
+  EquipHammerShield()

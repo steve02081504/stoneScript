@@ -1,0 +1,15 @@
+#row
+#layer L0
+#role wiring
+// ===== 开关 =====
+export var speedRun = false // true=竞速：不采集、不图鉴、超时自动 Leave
+export var useAutoPotion = true // false=关闭 loop 末尾基础自动药水
+
+export var finisherWeapon = "" // 终结武器 equip id；空=不启用
+export var finisherCooldown = "" // cooldown id，与上行同填才启用
+export var finisherLastHitOnly = false // true=仅残血时激活终结技R
+
+export var bestiaryReset = false // true=loc.begin 清空图鉴 storage
+export var bestiaryDebug = false // true=打印 foeKey/NeedsBestiaryScan
+
+//

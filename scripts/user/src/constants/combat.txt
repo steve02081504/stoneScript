@@ -1,0 +1,7 @@
+#layer L0
+// --- 战斗阈值 ---
+const smiteMinFoes = 6
+const dashFreezeFrames = 60
+const ouroborosHpRatio = 0.6
+const hpWandSwitchRatio = 0.7
+const strengthPotionArmorDist = 15

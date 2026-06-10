@@ -1,0 +1,26 @@
+#layer util
+// --- 物品 / 施法 / 帧冻结工具 ---
+//
+// CdReady：冷却就绪且 CanActivate
+// IsWeaponCasting：左右手 state=2 表示武器仍在施法
+// CastR：右手已在施法该武器时续 activate R
+// IsFrozen(until)：until 为 totaltime 截止帧；dash/mind 定身窗口内禁止换装
+
+export func CdReady(cdKey)
+  return item.GetCooldown(cdKey) <= 0 & item.CanActivate()
+
+export func IsWeaponCasting()
+  ?item.right ! empty & item.right.state = 2
+    return true
+  ?item.left ! empty & item.left.state = 2
+    return true
+  return false
+
+export func CastR(itemName)
+  ?item.right = @itemName@ & item.right.state = 2
+    activate R
+    return true
+  return false
+
+export func IsFrozen(until)
+  return until >= 0 & totaltime < until

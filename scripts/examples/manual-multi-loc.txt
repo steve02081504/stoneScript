@@ -1,0 +1,15 @@
+// Official manual example — multi-location loadouts
+?loc=rocky
+  equip shovel
+?loc=cave
+  loadout 1
+  ?foe=bolesh
+    equip grap
+    equip hammer *7 D
+?loc=halls
+  equipL poison wand
+  equipR vigor wand
+  ?loc.stars > 5
+    equip vigor staff +13
+?hp < 10
+  activate potion

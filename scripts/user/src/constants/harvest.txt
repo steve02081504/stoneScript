@@ -1,0 +1,3 @@
+#layer L0
+const harvestFoeMinDist = 18
+const harvestSwingDist = 7

@@ -1,0 +1,52 @@
+#layer orchestration
+import toggles
+import utils/buff
+import utils/distance
+import utils/item
+
+// --- 终结技（finisherWeapon + finisherCooldown 成对启用）---
+
+const finisherLastHitHpSum = 10
+const pickPocketThreshold = 3
+const finisherRangeMax = 7
+
+func TryFinisherLastHit()
+  ?!finisherLastHitOnly
+    return false
+  ?foe.hp + foe.armor <= finisherLastHitHpSum & foe.hp > 0
+    activate R
+    return true
+  return false
+
+func TrySkeletonArmFinisher()
+  ?finisherCooldown ! "skeleton_arm"
+    return false
+  ?BuffCount("pick_pocket", buffs.string) >= pickPocketThreshold
+    activate R
+    return true
+  return false
+
+func TryFinisher()
+  ?finisherWeapon = "" | finisherCooldown = ""
+    return false
+  ?foe = boss | foe = immune_to_physical | foe = immune_to_ranged | foe = spawner | FoeInactive()
+    return false
+  ?foe.distance > finisherRangeMax
+    return false
+  ?CastR(finisherWeapon)
+    return true
+  ?!CdReady(finisherCooldown)
+    return false
+  equip @finisherWeapon@
+  ?TryFinisherLastHit()
+    return true
+  ?finisherLastHitOnly
+    return false
+  ?TrySkeletonArmFinisher()
+    return true
+  ?finisherCooldown = "skeleton_arm"
+    return false
+  ?item.CanActivate()
+    activate R
+    return true
+  return false

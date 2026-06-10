@@ -1,0 +1,56 @@
+#layer orchestration
+import common
+import equip
+import potion/use
+import state
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Nagaraja ---
+
+const nagarajaSpitLeadFrames = 25
+const nagarajaSpitDodgeMinFrames = 6
+
+func Nagaraja_SyncQueuedSpitLand()
+  ?nagarajaSpitLandAt = totaltime & nagarajaQueuedSpitLandAt > nagarajaSpitLandAt
+    nagarajaSpitLandAt = nagarajaQueuedSpitLandAt
+
+func Nagaraja_OnSpitWindup()
+  ?foe.state = 31 | (foe.state = 33 & foe.time = 0)
+    ?nagarajaSpitLandAt > totaltime
+      nagarajaQueuedSpitLandAt = totaltime + nagarajaSpitLeadFrames
+    :
+      nagarajaSpitLandAt = totaltime + nagarajaSpitLeadFrames
+
+func Nagaraja_IsSpitImminent()
+  return nagarajaSpitLandAt > totaltime
+
+func Nagaraja_TrySpitDodge()
+  ?!Nagaraja_IsSpitImminent()
+    return false
+  ?nagarajaSpitLandAt - totaltime <= nagarajaSpitDodgeMinFrames
+    nagarajaSpitLandAt = totaltime + nagarajaSpitDodgeMinFrames
+  EquipSpitDodge()
+  return true
+
+export func FightNagaraja(element)
+  ?Encounter_TryCleansingIfHeavy(0)
+    return
+  ?foe.distance <= closeRangeMax
+    ?TryOffensePotion(Strength, true)
+      return
+  Nagaraja_SyncQueuedSpitLand()
+  Nagaraja_OnSpitWindup()
+  // state 112 + time 55：吐息前摇；state 105：远距安全帧
+  ?EqMind(112, 55, mindTimeGte, true, true)
+    return
+  ?foe.state = 105
+    EqXbow(element)
+    return
+  ?Nagaraja_TrySpitDodge()
+    return
+  ?item.GetCooldown("mind") > 0 | debuffs.count > 3
+    EqXbow(element)
+    return
+  EqDI(element)

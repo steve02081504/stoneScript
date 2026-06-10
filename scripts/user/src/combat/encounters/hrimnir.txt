@@ -1,0 +1,35 @@
+#layer orchestration
+import equip
+import potion/use
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Hrimnir（Yeti）---
+
+const hrimnirShovelMinDist = 2
+const hrimnirShovelMaxDist = 7
+
+export func FightHrimnir(element)
+  ?foe.armor = 0
+    ?TryOffensePotion(Strength, true)
+      return
+  ?foe = pillar | foe = wall
+    EqXbow(element)
+    ?foe = wall & item.GetCount("moondial") > 0
+      equipR moondial
+    return
+  // state 133：Yeti 危险帧；3 星以上通用 mind 定身
+  ?EqMind(133, -1, mindTimeGte, true, true)
+    return
+  ?foe.distance > hrimnirShovelMinDist & foe.distance < hrimnirShovelMaxDist & foe.state ! 133
+    equip shovel
+    return
+  ?foe.state = 133
+    EqStaff(element)
+    return
+  ?loc.stars >= 3
+    equipL @element + " wand"@
+    equipR dI @element + " wand"@
+    return
+  EqStaff(element)

@@ -1,0 +1,7 @@
+#layer orchestration
+import common
+
+// --- Epic ---
+
+export func FightEpic(element)
+  Encounter_EquipDefaultRanged(element)

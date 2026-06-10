@@ -1,0 +1,33 @@
+#layer orchestration
+import equip
+import potion/use
+import constants/potion
+import utils/hp
+import utils/item
+
+// --- 遭遇战公共前奏（encounters/* 同包可调用）---
+//
+// Encounter_* 前缀：药水 / 净化 / 默认远距弩等可复用片段
+// EqMind 参数说明见 equip.txt
+
+// CanActivate 时尝试力量药（Bolesh 等）
+func Encounter_TryStrengthIfReady()
+  ?!item.CanActivate()
+    return false
+  return TryOffensePotion(Strength, true)
+
+// debuff 超过阈值时净化（Nagaraja 等）
+func Encounter_TryCleansingIfHeavy(threshold)
+  ?debuffs.count <= threshold
+    return false
+  return TryCleansingPotion()
+
+// 带 debuff 且低血时净化（Guardian 等）
+func Encounter_TryCleansingIfDamagedAndLowHp()
+  ?debuffs.count <= 0 | !HpBelow(hpCleansingRatio)
+    return false
+  return TryCleansingPotion()
+
+// 无专属脚本时的默认远距弩策略（Enoki / Ceiling / Epic / Snail / Puff）
+func Encounter_EquipDefaultRanged(element)
+  EqXbow(element)

@@ -1,0 +1,16 @@
+#layer orchestration
+import equip
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Xyloalgia / Deadwood phase1 ---
+
+export func FightXyloalgia(element)
+  ?EqMind(33, 15, mindTimeGte, false, false)
+    return
+  ?loc.stars >= 3
+    EqDpDi(element)
+    return
+  equipL @element + " sword"@
+  equipR hatchet

@@ -1,0 +1,1416 @@
+{
+  "count": 235,
+  "version": "manual-4.27.1",
+  "entries": [
+    {
+      "path": "Chisel",
+      "category": "Miscellaneous",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "CozyCave",
+      "category": "Miscellaneous",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Fishing",
+      "category": "Miscellaneous",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "TrainAdventure",
+      "category": "Miscellaneous",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Components/MapGenV3",
+      "category": "Components",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Components/OVERHAUL",
+      "category": "Components",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Components/Rainbowifier",
+      "category": "Components",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Components/Vector",
+      "category": "Components",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/67abilities",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Acrocorn",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/AcronianGuardian",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/AuroraBorealis",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/BadApple",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Balloon",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Beach",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Bolesh",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/CandyFall",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/CaveParty",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/cDonut",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/ChristmasTree",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/ChrWings",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/ConfettiHead",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/CruiseShip",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/CultGroup",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/DragonWorm",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Drill",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Explosion",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/FireFly",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Fireworks",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/FrogInvasion",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Giftbag",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/HHCandyDecor",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Infected",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Knight",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Mech",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/MidnightFarmer",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/MineManager",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/MinersSupport",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/MushroomAnt",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/MushroomHead",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Party",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/PartyNoisemaker",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/pirat",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Portobello",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/POW",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Prismatic2",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/PumpkinCarving",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Pumpkins",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/quips",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/SantaFlyingSleigh",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/SillyGoose",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/SleepyStonehead",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Snailwarrior",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/SpookyScarySkeletons",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/SpringBloom",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/StoneClause",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/StoneheadFall",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/StoneHeadless",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/StonePhone",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Storm",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/SummerCorona",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/SuperStoneHead",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/TheSun",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/Turret",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/TwinSuns",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/WavyScarf",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Cosmetics/WitchBroom",
+      "category": "Cosmetics",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Foes/FlowerFoes",
+      "category": "Foes",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Foes/PallasCrown",
+      "category": "Foes",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Foes/PumpkinWraith",
+      "category": "Foes",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Foes/SurferGuardian",
+      "category": "Foes",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/2048",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Arena",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Asteroids",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Blackjack",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Boarding",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/BurgerRush",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/cColorTetris",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/cGomoku",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/cTetris",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/DigitsPuzzle",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/DungeonCrawler",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/FeedABat",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/FlyupText",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/FrogBog",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/FrogJump",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/GetawayDriver",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/GrowPlants",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/KiJo",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/KillerRPG",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Metallophone",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Minesweeper",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/PlayCards",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/PlayingCards",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Rhythm",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Simon",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Snake",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/SpearThrowing",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/SSRPGIdle",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Stone",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/StoneasaurGame",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/StoneBoxman",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/StoneDungeon",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Stonemon",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/Sudoku",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/SudokuEnchant",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/SwordGame",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/TowerDefense",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/UnpossibleQuiz",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Games/WhackaMole",
+      "category": "Games",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/BEEGhead",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/CalaveritaDeAzucar",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/CatHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/ChefHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Cordiceps",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/DefectFaceplate",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/DiscoVisor",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/DragonHead",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Dysanhead",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Enchanthead",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Fedora",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/GlitchHead",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Headphones",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Helmet",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/HrimnirHair",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/IroncladMask",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/JesterHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/LanternTalisman",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Mughead",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/MushroomHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/NewWaveHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/PirateHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/RainbowWitch",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/ReindeerHead",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/SantaHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/ShuffleHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/SilentSkull",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Skully",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/StarCloak",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/TennaHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Tonimator",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/Treeman",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Hats/WitchHat",
+      "category": "Hats",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Bear",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Bird",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/BlackHole",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Boo",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Bunny",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/CatBalloon",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/CatWithReffer",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/CavePets",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Chick",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Crab",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Cranius",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Dog",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Dracula",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Dragon",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Fly",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/FoesNoMore",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Frog",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/JackOLantern",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/LegsTurkey",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Mushroom",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/OiiaCat",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Panda",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/ParasolaNimbus",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/PartyDominitaur",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Pomeranian",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/PortableBar",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/RoyaltyDeliverer",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Seagull",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Skully",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Snail",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Snake",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/SnowBunny",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Snowman",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Spider",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/SpringBuddy",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Stick",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Stonehead",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Sun",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/TarPusher",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Pets/Wisp",
+      "category": "Pets",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/A2S",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/BetterInfo2",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/BetterText",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/BonsaiTimer",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/BorderClock",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/BossBar",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/BossGauge",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/BossHealthBar",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/BragMeter",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/Calculator",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/CDTime",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/ClickAbilities",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/damageFlash",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/DragController",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/EdiCustomUI",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/FaceHUD",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/FoeStateTracker",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/FreeChestTracker",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/HauntedGate",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/InfoFloat",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/ItemName",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/LiveSplit",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/MindstoneButton",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/MiniMap",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/MusicBox",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/OkamiroyUtils",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/PefWindow",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/PlayerStateTracker",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/RecordPlayer",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/ScrollText",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/StealMeter",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/ToolBelt",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/VisualStatusEffects",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/ChiselFiles/Additional",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/ChiselFiles/SetLayer",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/FancyUI/colour",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/FancyUI/fancyui",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "UI/FancyUI/print",
+      "category": "UI",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/AR",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/ArmorGenerator",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/EmbueDaggers",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/IceCannon",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/LanternTalisman",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/MajPack",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/MajVines",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/OilLamp",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/PsyCrusher",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/RecoilKick",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/RootBats",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/Scythe",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/ShockwaveWhip",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    },
+    {
+      "path": "Weapons/SpellBook",
+      "category": "Weapons",
+      "description": "",
+      "wikiUrl": "https://stonestoryrpg.miraheze.org/wiki/Community_Scripts"
+    }
+  ]
+}

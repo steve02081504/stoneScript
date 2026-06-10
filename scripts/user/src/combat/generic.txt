@@ -1,0 +1,125 @@
+#layer orchestration
+#role facade
+import data
+import equip
+import constants/combat
+import constants/distance
+import utils/distance
+import utils/hp
+import utils/item
+
+// ---------------------------------------------------------------------------
+// 泛用战斗（非 Boss、非特殊遭遇）
+// 对外：GenericEquip / ShouldDeferForWeaponCast / IsThinShellFoe / CounterElement
+// ---------------------------------------------------------------------------
+
+const thinShellArmorMin = 100 // 轻甲怪高护甲时优先重锤
+const elementRingSize = 5     // counterElements 与 counterCounters 等长
+
+// 轻甲怪（thin shell）：护甲占比高或总血甲较低，不适合冲刺贴脸
+export func IsThinShellFoe()
+  ?foe = boss | foe = magic_resist | IsFlyingFoe()
+    return false
+  ?foe = immune_to_physical | foe = immune_to_ranged
+    return false
+  ?foe.maxarmor <= 0
+    return false
+  ?foe.maxarmor > foe.maxhp / 2
+    return true
+  ?foe.maxhp + foe.maxarmor <= 120
+    return true
+  return false
+
+// adaptive_defense_<counter> 存在时该 counter 不可用
+func FoeLacksAdaptiveDefense(counter)
+  return foe.buffs.string ! ("adaptive_defense_" + counter)
+
+// foe 显示名含 " el " 子串时视为该元素怪（如 " ice golem "）
+func FoeNameContainsElement(el)
+  return foe = (" " + el + " ")
+
+// 克制元素：先 adaptive 过滤 + 名内元素，再裸 foe 元素；默认 "vigor"
+func CounterElement()
+  for i = 0..elementRingSize - 1
+    var el = counterElements[i]
+    var counter = counterCounters[i]
+    ?FoeLacksAdaptiveDefense(counter) & FoeNameContainsElement(el)
+      return counter
+  for i = 0..elementRingSize - 1
+    ?foe = counterElements[i]
+      return counterCounters[i]
+  return "vigor"
+
+// --- 按 foe 标签分派换装（命中则已 equip）---
+// allowOuroboros：immune_to_ranged / 未激活怪分支是否尝试衔尾蛇
+
+func EquipForMagicResistFoe(element)
+  ?foe.maxarmor > 0 & FoeWithinCloseRange()
+    ?TryHeavyHammerActivate()
+      return true
+  ?EquipBashLeftHammer(element)
+      return true
+  EqMelee(element)
+  return true
+
+func EquipForPhysicalImmuneFoe(element)
+  EquipMagicVulnBonus(element)
+  return true
+
+func EquipForMagicVulnFoe(element)
+  ?FoeBeyondCloseRange()
+    return false
+  ?HpBelow(hpWandSwitchRatio) | FoeHpArmorRatio() < 1
+    EquipMagicVulnBonus(element)
+    return true
+  return false
+
+func EquipForRangedImmuneFoe(element, allowOuroboros)
+  EqMelee(element)
+  ?allowOuroboros & OuroborosEquipOk() & item.GetCount("ouroboros") > 0
+    equipL ouroboros
+  return true
+
+func TryEquipForFoeTraits(element, allowOuroboros)
+  ?foe = magic_resist
+    return EquipForMagicResistFoe(element)
+  ?foe = immune_to_physical
+    return EquipForPhysicalImmuneFoe(element)
+  ?foe = magic_vulnerability
+    return EquipForMagicVulnFoe(element)
+  ?IsFlyingFoe() & !ShouldSkipRanged()
+    EqXbow(element)
+    return true
+  ?foe = immune_to_ranged | FoeInactive()
+    return EquipForRangedImmuneFoe(element, allowOuroboros)
+  return false
+
+// 轻甲怪：中近距锤/盾，超高护甲用重锤
+func EquipForThinShellFoe(element)
+  ?FoeBeyondMidRange()
+    return
+  ?FoeBeyondCloseRange()
+    EqMelee(element)
+    return
+  ?foe.maxarmor >= thinShellArmorMin
+    ?TryHeavyHammerActivate()
+      return
+    EquipHeavyHammer(false)
+    return
+  EqMelee(element)
+
+// 默认近战路线；特性装 / 轻甲 / ouroboros / 快甲盾
+func GenericEquip(element)
+  ?TryEquipForFoeTraits(element, true)
+    return
+  ?IsThinShellFoe()
+    EquipForThinShellFoe(element)
+    return
+  EqMelee(element)
+  ?OuroborosEquipOk() & item.GetCount("ouroboros") > 0
+    equipL ouroboros
+  FastArmorShield()
+
+// 武器仍在施法中：本帧不换装；ouroboros 近战低血可打断
+func ShouldDeferForWeaponCast()
+  return IsWeaponCasting() & !(item.left = ouroboros & (FoeWithinCloseRange() | !HpBelow(ouroborosHpRatio)))

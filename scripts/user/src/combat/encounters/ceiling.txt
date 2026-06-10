@@ -1,0 +1,10 @@
+#layer orchestration
+import common
+import equip
+
+// --- Ceiling ---
+
+// 先 bash 盾再默认远距弩
+export func FightCeiling(element)
+  EquipBashShield()
+  Encounter_EquipDefaultRanged(element)

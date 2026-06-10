@@ -1,0 +1,10 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Local test outputs (do not ignore scripts/user/)
+*.log
+.local/
+*.pyc

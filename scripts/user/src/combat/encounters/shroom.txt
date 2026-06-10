@@ -1,0 +1,16 @@
+#layer orchestration
+import equip
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Shroom / Fungus phase1 ---
+
+export func FightShroom(element)
+  ?EqMind(33, -1, mindTimeGte, false, false)
+    return
+  ?foe.armor > 0
+    EquipHeavyHammer(false)
+    return
+  equipL poison sword
+  equipR poison shield

@@ -1,0 +1,126 @@
+#layer orchestration
+import data
+import equip
+import potion/use
+import utils/buff
+import utils/distance
+import utils/hp
+import utils/item
+
+// --- Debuff 剑轮换（Boss 阈值查表见 data.txt）---
+//
+// kind：damage / dot / chill / feeble
+// SkipDebuff = 泛用怪门控；SkipBossDebuff = Boss 满血白名单 + 血甲比例阈值
+// DebuffSword / ActivateFeebleMask / BossDebuffRotate = 对外调用链
+
+const selfDamageMax = 7
+
+func FoeIsOneOf(names)
+  for n : names
+    ?foe = @n@
+      return true
+  return false
+
+// tag: foe 名 | "shroom"（真菌系列表）| "rocky"（岩石地点）
+func BossDebuffTagMatches(tag)
+  ?tag = "shroom"
+    return FoeIsOneOf(bossDebuffShroomFoes)
+  ?tag = "rocky"
+    return loc = rocky
+  return foe = @tag@
+
+func BossDebuffThreshold(kind)
+  for row : bossDebuffThresholds
+    ?row[0] = kind & BossDebuffTagMatches(row[1])
+      return row[2]
+  return 0
+
+// 满血跳过 debuff 白名单（见 data.txt 四张表）：
+//   bossDebuffFullHpFoes — 全部种类
+//   bossDebuffFullHpFeebleFoes — 仅 feeble
+//   bossDebuffFullHpNonDotFeebleFoes — 非 dot/feeble
+//   bossDebuffFullHpDotFoes — 仅 dot
+func BossSkipsDebuffAtFullHp(kind)
+  ?FoeIsOneOf(bossDebuffFullHpFoes)
+    return true
+  ?kind = "feeble" & FoeIsOneOf(bossDebuffFullHpFeebleFoes)
+    return true
+  ?kind ! "dot" & kind ! "feeble" & FoeIsOneOf(bossDebuffFullHpNonDotFeebleFoes)
+    return true
+  ?kind = "dot" & FoeIsOneOf(bossDebuffFullHpDotFoes)
+    return true
+  return false
+
+func DebuffBlockedByFoeState()
+  return foe.buffs.string = protection | Potion_HasOffenseOn()
+
+func SkipDebuff(kind)
+  return FoeBeyondMidRange() | DebuffBlockedByFoeState() | (foe = legless & kind ! "feeble") | SkipBossDebuff(kind)
+
+func BossDebuffAlwaysSkip(kind)
+  for row : bossDebuffAlwaysSkip
+    ?row[0] = kind & foe = row[1]
+      return true
+  return false
+
+func SkipBossDebuff(kind)
+  ?!foe = boss
+    return false
+  ?BossSkipsDebuffAtFullHp(kind) | BossDebuffAlwaysSkip(kind)
+    return true
+  var threshold = BossDebuffThreshold(kind)
+  ?threshold > 0 & FoeHpArmorRatio() <= threshold
+    return true
+  return false
+
+func SelfDamageHigh()
+  return BuffCount("debuff_duration_damage", debuffs.string) + BuffCount("spider_debuff_damage", debuffs.string) > selfDamageMax
+
+// swordPrefix: dP/dF/dI；skipIfFoeHasDebuff: foe.debuffs 已含该串则跳过
+func DebuffSword(element, kind, swordPrefix, skipIfFoeHasDebuff)
+  ?SkipDebuff(kind)
+    return false
+  ?skipIfFoeHasDebuff ! ""
+    ?foe.debuffs.string = @skipIfFoeHasDebuff@
+      return false
+  ?kind = "damage" & foe = immune_to_debuff_damage
+    return false
+  ?kind = "chill"
+    ?BuffCount("chill", foe.debuffs.string) >= 6
+      return false
+    ?foe = immune_to_debuff_chill
+      return false
+  equipR mask
+  equipL @swordPrefix + element + " sword"@
+  return true
+
+func ActivateFeebleMask(bossOnly, returnOnSuccess)
+  ?foe.debuffs.string = feeble
+    return false
+  ?bossOnly
+    ?SkipBossDebuff("feeble")
+      return false
+  :
+    ?SkipDebuff("feeble")
+      return false
+  ?!CdReady("mask")
+    return false
+  equipR mask
+  activate R
+  ?returnOnSuccess
+  return true
+
+func BossDebuffRotate(element)
+  ?IsWeaponCasting()
+    return false
+  ?DebuffBlockedByFoeState()
+    return false
+  ?FoeBeyondCloseRange()
+    return false
+  for row : debuffSwordRows
+    ?DebuffSword(element, row[0], row[1], row[2])
+      return true
+  ?foe.maxarmor > 50 & foe.debuffs.string ! fatigue
+    ?TryHeavyHammerActivate()
+      return true
+  return ActivateFeebleMask(false, true)

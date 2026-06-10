@@ -1,0 +1,13 @@
+#layer L0
+// --- 药水触发（绝对 hp 或 hp/maxhp 比例）---
+const healPotionHpThreshold = 7
+const defensiveHpMin = 5
+const hpCleansingRatio = 0.5
+const hpLuckyRatio = 0.5
+const hpBerserkRatio = 0.6
+const hpDefensiveRatio = 0.7
+const hpExperienceRatio = 0.8
+const hpVampiricRatio = 0.85
+const vampiricHpMin = 5
+const hpInvisibilityRatio = 0.3
+const hpRetreatRatio = 0.75

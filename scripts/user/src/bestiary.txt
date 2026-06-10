@@ -1,0 +1,128 @@
+#role facade
+import constants/distance
+import toggles
+
+// ---------------------------------------------------------------------------
+// 模块：图鉴（sight 扫描 + storage 持久化）
+// 竞速跳过图鉴/采集由 loop 负责（见 loop.txt）
+//
+// 扫描策略：优先右手 sight，失败再试左手（右手常为战斗主手）
+// 记图鉴时机：任一手 state=4，或 state=0 且 sight cd>0（刚扫完）
+// ---------------------------------------------------------------------------
+
+var bestiary = []
+var bestiaryKey = "bestiary"
+
+export func Bestiary_Init(isLocStart)
+  ?isLocStart & bestiaryReset
+    storage.Delete(bestiaryKey)
+    bestiary.Clear()
+    return
+  ?storage.Has(bestiaryKey)
+    bestiary = string.Split(storage.Get(bestiaryKey), ";")
+  :
+    bestiary.Clear()
+
+func BestiaryFoeKey()
+  ?foe.id ! ""
+    return foe.id
+  ?foe.name ! ""
+    return foe.name
+  return ""
+
+func BestiaryContains(id)
+  return bestiary.Contains(id)
+
+func SaveBestiary()
+  storage.Set(bestiaryKey, string.Join(";", bestiary))
+
+func NeedsBestiaryScan()
+  ?!foe
+    return false
+  var foeKey = BestiaryFoeKey()
+  return foeKey ! "" & !BestiaryContains(foeKey)
+
+// --- sight 手位（useRightHand: true=右手）---
+// 右手优先：常为战斗主手；失败再试左手。
+// 五组 Hand* 函数镜像左右手，因 Stonescript 无法将 item.left/right 存入变量。
+func IsSightOnHand(useRightHand)
+  ?useRightHand
+    return item.right = sight
+  return item.left = sight
+
+func IsHandSightCasting(useRightHand)
+  ?!IsSightOnHand(useRightHand)
+    return false
+  ?useRightHand
+    return item.right.state = 2 | item.right.state = 3
+  return item.left.state = 2 | item.left.state = 3
+
+func SightHandJustScanned(useRightHand)
+  ?!IsSightOnHand(useRightHand)
+    return false
+  ?useRightHand
+    return item.right.state = 4 | (item.right.state = 0 & item.GetCooldown("sight") > 0)
+  return item.left.state = 4 | (item.left.state = 0 & item.GetCooldown("sight") > 0)
+
+func EquipSightHand(useRightHand)
+  ?useRightHand
+    equipR sight
+  :
+    equipL sight
+
+func ActivateSightHand(useRightHand)
+  ?useRightHand
+    activate R
+  :
+    activate L
+
+export func Bestiary_IsBlocking()
+  return IsHandSightCasting(true) | IsHandSightCasting(false)
+
+func CanBestiaryScanNow()
+  return NeedsBestiaryScan() & foe.distance <= sightScanDist
+
+func DebugBestiary()
+  ?!bestiaryDebug
+    return
+  >`0,1,bestiary foe=@BestiaryFoeKey()@ needScan=@NeedsBestiaryScan()@
+
+func TrySightScanOnHand(useRightHand)
+  EquipSightHand(useRightHand)
+  ?!IsSightOnHand(useRightHand)
+    return false
+  ?IsHandSightCasting(useRightHand)
+    return true
+  ?item.CanActivate()
+    ActivateSightHand(useRightHand)
+  return true
+
+func TryBestiaryScan()
+  ?item.GetCount("sight") <= 0
+    return false
+  ?TrySightScanOnHand(true)
+    return true
+  return TrySightScanOnHand(false)
+
+func SightJustScanned()
+  return SightHandJustScanned(true) | SightHandJustScanned(false)
+
+func TryLogFoe()
+  var foeKey = BestiaryFoeKey()
+  ?foeKey = ""
+    return
+  ?!SightJustScanned()
+    return
+  ?!BestiaryContains(foeKey)
+    bestiary.Add(foeKey)
+    SaveBestiary()
+
+export func Bestiary_NeedsChase()
+  return NeedsBestiaryScan() & foe.distance > sightScanDist
+
+// 记图鉴 → 调试 → 近距扫描
+export func Bestiary_RunPhase()
+  TryLogFoe()
+  DebugBestiary()
+  ?CanBestiaryScanNow()
+    TryBestiaryScan()

@@ -1,0 +1,23 @@
+#layer orchestration
+import equip
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Pallas（Skinless / Legless）---
+
+export func FightPallas(element)
+  ?foe = legless
+    ?EqMind(32, 30, mindTimeGte, false, true)
+      return
+    ?foe.count > 1
+      EqXbow(element)
+      return
+    EqStaff(element)
+    return
+  ?EqMind(32, 45, mindTimeGte, false, true)
+    return
+  ?foe.armor > 0
+    EquipHammerShield()
+    return
+  EqMelee(element)

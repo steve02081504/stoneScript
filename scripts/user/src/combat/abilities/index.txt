@@ -1,0 +1,131 @@
+#layer orchestration
+import smite
+import finisher
+import data
+import debuff
+import equip
+import toggles
+import constants/distance
+import constants/combat
+import utils/buff
+import utils/distance
+import utils/hp
+import utils/item
+
+// --- 能力激活（先于装备；泛用 GenericAbilities / Boss BossAbilities）---
+//
+// GenericAbilities 优先级（自上而下短路）：
+//   Cinderwisp 吞噬 → 火符 → 冰杖 explode → smite → bardiche/重锤 → 溅射剑 U → 终结技
+
+const fireTalismanMinDist = 16
+const devourFoeCount = 3
+const devourBossCount = 10
+const cinderwispMinBestTimeSecs = 90
+const foeArmorThreshold = 50
+const bardicheMinHpArmorMultiplier = 6 // bardiche 触发：foe.hp+armor > foeArmorThreshold * 此值
+const splashMinFoes = 3
+
+func FireTalisman()
+  ?item.GetCount("fire talisman") <= 0
+    return false
+  ?summon.count > 0
+    return false
+  ?foe = poena
+    return false
+  ?foe.distance <= fireTalismanMinDist
+    return false
+  ?!CdReady("talisman_fire")
+    return false
+  equipR fire talisman
+  activate R
+  return true
+
+export func CinderwispDevour(isBoss)
+  ?summon.count <= 0
+    return false
+  ?summon.GetId() ! cinderwisp
+    return false
+  var threshold = devourFoeCount
+  ?isBoss
+    threshold = devourBossCount
+  ?summon.GetVar("ignition") < threshold
+    return false
+  ?!isBoss & !(loc.bestTime > 0 & (loc.bestTime - totaltime) / 30 > cinderwispMinBestTimeSecs)
+    return false
+  ?!item.CanActivate()
+    return false
+  activate cinderwisp
+  return true
+
+// 续施 bardiche 或 heavy hammer（已在右手施法中时）
+func TryCastBardicheOrHammer()
+  ?CastR("bardiche")
+    return true
+  return CastR("heavy hammer")
+
+func TryBardicheBurst()
+  ?TryCastBardicheOrHammer()
+    return true
+  ?item.GetCount("bardiche") > 0 & CdReady("bardiche")
+    equip bardiche
+    activate R
+    return true
+  ?TryHeavyHammerActivate()
+    return true
+  return false
+
+// foe = explode：可冰杖引爆的怪物标签
+func FoeIsExplodeTarget()
+  return foe = explode
+
+func FoeChillStacksLow()
+  return BuffCount("chill", foe.debuffs.string) < 6
+
+func CanExplodeIceWand()
+  return FoeIsExplodeTarget() & foe.distance > midRangeMin & foe ! immune_to_ranged & foe ! immune_to_debuff_chill & buffs.GetCount("smite") > 0 & FoeChillStacksLow()
+
+func TryExplodeIceWand()
+  ?CanExplodeIceWand()
+    equipL ice wand
+    equipR ice wand
+    return true
+  return false
+
+// 泛用怪能力链（按优先级短路）
+export func GenericAbilities()
+  ?!CanEngage()
+    return false
+  ?CinderwispDevour(false)
+    return true
+  ?FireTalisman()
+    return true
+  ?TryExplodeIceWand()
+    return true
+  ?BladeSmite(smiteMinFoes, smiteNormalMaxDist, false, false)
+    return true
+  ?!Combat_SkipsBardicheBurst() & FoeWithinCloseRange() & foe.hp + foe.armor > foeArmorThreshold * bardicheMinHpArmorMultiplier
+    ?TryBardicheBurst()
+      return true
+  ?foe.count >= splashMinFoes & foe.distance <= midRangeMin & !IsFlyingFoe() & item.GetCount("sword U") > 0
+    equipL sword U
+    return true
+  ?TryFinisher()
+    return true
+  return false
+
+// Boss 能力链（部分具名遭遇在 encounters/ 内自管药水/重锤）
+export func BossAbilities()
+  ?FireTalisman()
+    return
+  ?TryCastBardicheOrHammer()
+    return
+  ?FoeWithinCloseRange() & foe.armor < 2
+    ?TryBardicheBurst()
+      return
+  ?foe.maxarmor > 0 & FoeWithinCloseRange()
+    ?TryHeavyHammerActivate()
+      return
+  ?foe = poena | foe = guardian | foe = nagaraja
+    return
+  ?ActivateFeebleMask(true, false)
+    return

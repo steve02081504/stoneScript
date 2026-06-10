@@ -1,0 +1,17 @@
+#layer orchestration
+import equip
+import utils/distance
+import utils/item
+
+// --- 炸弹车（近距 mind 定身）---
+
+const bombCartMindDist = 7
+
+export func IsBombCartEncounter()
+  return foe = bomb cart & foe.distance < bombCartMindDist
+
+export func FightBombCart()
+  ?IsBombCartEncounter()
+    EquipMindFreeze(false)
+    return true
+  return false

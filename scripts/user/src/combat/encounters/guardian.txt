@@ -1,0 +1,31 @@
+#layer orchestration
+import common
+import equip
+import potion/use
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Guardian ---
+//
+// state 32 time=35：精确帧 mind；state 33 time>=20：持续帧 mind
+
+export func FightGuardian()
+  ?Encounter_TryCleansingIfDamagedAndLowHp()
+    return
+  ?TryOffensePotion(Strength, true)
+    return
+  ?EqMind(32, 35, mindTimeEq, false, true)
+    return
+  ?EqMind(33, 20, mindTimeGte, true, true)
+    return
+  ?foe.distance > closeRangeMax
+    EqXbow("aether")
+    return
+  ?foe.armor > 0
+    ?TryHeavyHammerActivate()
+      return
+    equipL aether hammer
+    equipR aether shield
+    return
+  EqDual("aether")

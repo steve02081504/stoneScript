@@ -1,0 +1,7 @@
+#layer orchestration
+import common
+
+// --- Puff ---
+
+export func FightPuff(element)
+  Encounter_EquipDefaultRanged(element)

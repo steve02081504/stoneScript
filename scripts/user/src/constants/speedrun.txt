@@ -1,0 +1,10 @@
+#layer L0
+#gate speedrun
+import toggles
+
+// --- 竞速：超时自动 Leave（仅 loop 编排调用）---
+
+const avgTimeExitRatio = 1.15
+
+export func SpeedRun_ShouldAutoLeave()
+  return speedRun & avgTimeExitRatio > 0 & loc.averageTime > 0 & (1.0 * totaltime) / (1.0 * loc.averageTime) > avgTimeExitRatio

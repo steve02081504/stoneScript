@@ -1,0 +1,13 @@
+#layer orchestration
+import equip
+import utils/distance
+import utils/item
+
+// --- Acronian（Temple；非 foe=boss）---
+
+export func FightAcronian(element)
+  // state 32：Acronian 攻击前摇；time >= 6 且护甲不足时 mind 定身
+  ?EqMind(32, 6, mindTimeGte, true, false)
+    ?armor < foe.damage
+      return
+  EqDual(element)

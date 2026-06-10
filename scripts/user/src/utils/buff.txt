@@ -1,0 +1,14 @@
+#layer util
+// --- debuff/buff 字符串解析 ---
+//
+// 格式 kind:...:层数:...，多条以逗号分隔
+// 例 "debuff_duration_damage:...:3:..." → BuffCount("debuff_duration_damage", src) = 3
+
+export func BuffCount(kind, src)
+  var buffStrings = string.Split(src, ",")
+  for buffStr : buffStrings
+    var buffParts = string.Split(buffStr, ":")
+    ?Type(buffParts) = Type([]) & buffParts.Count() = 4
+      ?string.IndexOf(buffParts[1], kind) > -1
+        return int.Parse(buffParts[2])
+  return 0

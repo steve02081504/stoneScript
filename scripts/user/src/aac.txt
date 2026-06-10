@@ -1,0 +1,15 @@
+#role wiring
+// ===== AAC（Auto Armor Change）=====
+// 左右手 state=3 表示护甲切换阻塞，无法继续 equip 期望武器。
+// 流程：先 equip 廉价占位物解除阻塞，再 equip 回原物品。
+// sight 手跳过——占位切换会打断图鉴扫描（state 2/3/4 序列）。
+
+export func Aac_Run()
+  ?item.left.state = 3
+    ?item.left ! sight
+      equipL stone throwing
+      equipL @item.left@
+  ?item.right.state = 3
+    ?item.right ! sight
+      equipR shield *0*
+      equip @item.right@

@@ -1,0 +1,93 @@
+#role facade
+#bridge combat
+import constants/potion
+import constants/combat
+import utils/distance
+import utils/hp
+
+// ---------------------------------------------------------------------------
+// 模块：自动用药（哑激活器；hp/比例阈值见 constants/potion、constants/combat）
+// 对外：Try* 供战斗遭遇调用；RunAuto 供 loop 末尾编排
+// ---------------------------------------------------------------------------
+
+// --- 生存类 ---
+func TryHealingPotion()
+  ?item.potion ! Healing & item.potion ! auto
+    return false
+  ?hp < healPotionHpThreshold
+    activate potion
+  return true
+
+export func TryCleansingPotion()
+  ?item.potion ! Cleansing
+    return false
+  activate potion
+  return true
+
+func TryDefensivePotion()
+  ?item.potion ! Defensive
+    return false
+  ?hp < defensiveHpMin
+    activate potion
+    return true
+  ?armor < 2 & HpBelow(hpDefensiveRatio)
+    activate potion
+  return true
+
+// --- 进攻 / 增益类 ---
+export func Potion_HasOffenseOn()
+  return buffs.GetTime("berserk") > 0 | buffs.GetTime("lucky") > 0 | buffs.GetTime("strength") > 0
+
+export func TryOffensePotion(potId, condition)
+  ?item.potion ! potId | Potion_HasOffenseOn()
+    return false
+  ?condition
+    activate potion
+    return true
+  return false
+
+func TryExperiencePotion()
+  ?item.potion ! Experience
+    return false
+  ?foe.count > 3 & foe ! boss & HpAbove(hpExperienceRatio)
+    activate potion
+  return true
+
+func TryVampiricPotion()
+  ?item.potion ! Vampiric
+    return false
+  ?CanEngage() & foe ! boss & HpBelow(hpVampiricRatio) & hp > vampiricHpMin
+    activate potion
+  return true
+
+func TryInvisibilityPotion()
+  ?item.potion ! Invisibility
+    return false
+  ?foe.count > 2 & HpBelow(hpInvisibilityRatio)
+    activate potion
+  return true
+
+// 自动用药优先级（与 constants 阈值对应）：
+// 治疗 → 净化 → 防御 → 力量 → 经验 → 闪电 → 吸血 → 隐身
+export func RunAuto()
+  ?!item.CanActivate()
+    return
+  ?item.potion = empty
+    return
+  ?TryHealingPotion()
+    return
+  ?debuffs.count > 0 | HpBelow(hpCleansingRatio)
+    ?TryCleansingPotion()
+      return
+  ?TryDefensivePotion()
+    return
+  ?TryOffensePotion(Strength, foe.maxarmor > 0 & foe.distance < strengthPotionArmorDist)
+    return
+  ?TryExperiencePotion()
+    return
+  ?TryOffensePotion(Lightning, foe.count >= 4)
+    return
+  ?TryVampiricPotion()
+    return
+  TryInvisibilityPotion()
+

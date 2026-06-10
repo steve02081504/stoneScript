@@ -1,0 +1,21 @@
+#layer util
+// --- 血量比例（玩家 hp/maxhp；敌人 hp+armor 合计比例）---
+//
+// HpBelow / HpAbove：与 constants/potion、constants/combat 中的 *Ratio 阈值配对
+// FoeHpArmorRatio：Boss debuff 跳过门控、魔抗换装等共用
+
+func HpRatio()
+  ?maxhp <= 0
+    return 1
+  return (1.0 * hp) / (1.0 * maxhp)
+
+export func HpBelow(ratio)
+  return HpRatio() < ratio
+
+export func HpAbove(ratio)
+  return HpRatio() > ratio
+
+export func FoeHpArmorRatio()
+  ?foe.maxhp + foe.maxarmor <= 0
+    return 1
+  return (1.0 * (foe.hp + foe.armor)) / (1.0 * (foe.maxhp + foe.maxarmor))

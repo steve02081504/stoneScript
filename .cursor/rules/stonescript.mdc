@@ -1,0 +1,28 @@
+---
+description: 编辑 scripts/**/*.txt 时的 Stonescript 约定
+globs: scripts/**/*.txt
+alwaysApply: false
+---
+
+# 编辑 scripts/user/src/
+
+路由与硬性约定见 [AGENTS.md](../../AGENTS.md)。战斗改动：`combat/routing`（帧流水线）→ `dedicated`（定制/Boss 分发）→ `encounters/*`（具名脚本）/ `abilities/*`（能力链）/ `generic`+`equip`（泛用换装）。详见 [docs/patterns/modules.md](../../docs/patterns/modules.md)。
+
+## AAC 放 loop 最前（aac.txt）
+
+```stonescript
+?item.left.state = 3
+  equipL stone throwing
+  equipL @item.left@
+```
+
+武器 state：2=cast，3=performance（AAC），4=cooldown。详见 [docs/patterns/aac.md](../../docs/patterns/aac.md)。
+
+## 调试打印
+
+```stonescript
+>`0,1,foe=@foe.name@ st=@foe.state@ t=@foe.time@
+>`0,2,L=@item.left.state@ R=@item.right.state@
+```
+
+冷却 ID 查 `db/appendix-index.json`。

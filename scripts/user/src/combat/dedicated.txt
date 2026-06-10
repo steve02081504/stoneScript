@@ -1,0 +1,203 @@
+#layer orchestration
+#role facade
+import abilities
+import data
+import debuff
+import encounters/acronian
+import encounters/bomb-cart
+import encounters/bolesh
+import encounters/ceiling
+import encounters/dysangelos
+import encounters/enoki
+import encounters/epic
+import encounters/guardian
+import encounters/hrimnir
+import encounters/morel
+import encounters/nagaraja
+import encounters/pallas
+import encounters/poena
+import encounters/puff
+import encounters/shroom
+import encounters/snail
+import encounters/xyloalgia
+import equip
+import generic
+import potion/use
+import constants/distance
+import constants/combat
+import constants/potion
+import utils/distance
+import utils/hp
+import utils/item
+
+// --- 定制遭遇战（分发 + 默认收尾；与 routing 泛用路线相对）---
+//
+// TryNamedBossEncounter 索引（按匹配顺序）：
+//   nagaraja | rocky dysangelos | guardian
+//   bolesh | poena | xyloalgia | enoki | morel | shroom
+//   yeti(hrimnir) | skinless/legless(pallas) | ceiling | puff | snail | epic
+
+const hpBossEquipLowRatio = 0.8
+const bossVampiricEquipDist = 8
+
+// 本帧走定制路线（禁用泛用战斗 / 部分移速）
+export func Combat_IsDedicatedEncounter()
+  ?IsBombCartEncounter()
+    return true
+  ?Combat_IsAcronianFight()
+    return true
+  ?foe = boss
+    return true
+  return false
+
+// routing 唯一定制入口：炸弹车 → 具名怪 → boss 通用收尾
+export func TryDedicatedEncounter(element)
+  ?FightBombCart()
+    return true
+  ?Combat_IsAcronianFight()
+    FightAcronian(element)
+    return true
+  ?foe = boss
+    RunBossEncounter(element)
+    return true
+  return false
+
+// Boss 收尾：沿用泛用特性换装，但不尝试 ouroboros
+func TryBossTraitEquip(element)
+  ?IsWeaponCasting()
+    return true
+  ?TryEquipForFoeTraits(element, false)
+    return true
+  return false
+
+func TryBossBashOrDebuffSword(element)
+  ?foe.maxarmor > 0 & FoeInMeleeApproachRange()
+    ?EquipBashLeftHammer(element)
+      return true
+  ?foe.debuffs.count = 0 & !SkipBossDebuff("damage") & !SelfDamageHigh() & item.GetCount("dP sword") > 0
+    equipR sword dP
+    return true
+  return false
+
+func EquipBossFallbackWeapons(element)
+  ?!FastArmorShield()
+    equipR @element + " shield"@
+  ?HpBelow(hpBossEquipLowRatio) & foe.distance < bossVampiricEquipDist
+    equipL sword dL
+  :
+    equipL @element + " hammer"@
+
+// Boss 未匹配具名脚本时的默认装备
+func EquipBossFallback(element)
+  ?TryBossTraitEquip(element)
+    return
+  ?TryBossBashOrDebuffSword(element)
+    return
+  EquipBossFallbackWeapons(element)
+
+// 蛇王 / 岩石 Dysangelos / 圣殿守卫
+func TryNamedBossSerpentAndGuardian(element)
+  ?foe = nagaraja
+    FightNagaraja(element)
+    return true
+  ?Combat_IsRockyDysangelosFight()
+    FightDysangelos()
+    return true
+  ?foe = guardian
+    FightGuardian()
+    return true
+  return false
+
+// 真菌 / 蘑菇系 Boss
+func TryNamedBossFungus(element)
+  ?foe = bolesh
+    FightBolesh(element)
+    return true
+  ?foe = poena
+    FightPoena(element)
+    return true
+  ?foe = xyloalgia
+    FightXyloalgia(element)
+    return true
+  ?loc = deadwood & foe = phase1
+    FightXyloalgia(element)
+    return true
+  ?foe = enoki
+    FightEnoki(element)
+    return true
+  ?foe = morel
+    FightMorel(element)
+    return true
+  ?loc = fungus | loc = shroom & foe = phase1
+    FightShroom(element)
+    return true
+  return false
+
+// 冰雪 / 人形 / 杂项具名怪
+func TryNamedBossMisc(element)
+  ?foe = yeti
+    FightHrimnir(element)
+    return true
+  ?foe = skinless | foe = legless
+    FightPallas(element)
+    return true
+  ?foe = ceiling
+    FightCeiling(element)
+    return true
+  ?foe = puff
+    FightPuff(element)
+    return true
+  ?foe = snail
+    FightSnail(element)
+    return true
+  ?foe = epic
+    FightEpic(element)
+    return true
+  return false
+
+// 具名 Boss 分发（按 foe / loc 匹配 encounters/*）
+func TryNamedBossEncounter(element)
+  ?TryNamedBossSerpentAndGuardian(element)
+    return true
+  ?TryNamedBossFungus(element)
+    return true
+  ?TryNamedBossMisc(element)
+    return true
+  return false
+
+// 交战态（foe.state > 1）进攻药：闪电 → 幸运 → 狂暴
+func TryBossEngagePotions()
+  ?foe.state <= 1
+    return false
+  ?TryOffensePotion(Lightning, foe.count > 1)
+    return true
+  ?TryOffensePotion(Lucky, HpAbove(hpLuckyRatio))
+    return true
+  ?TryOffensePotion(Berserk, HpAbove(hpBerserkRatio))
+    return true
+  return false
+
+// Boss 单帧流水线：
+//   1. 重 debuff → 净化
+//   2. 交战态进攻药（TryBossEngagePotions）
+//   3. Cinderwisp 吞噬
+//   4. 具名 Fight* 脚本
+//   5. debuff 剑轮换
+//   6. 力量药 → BossAbilities → 默认装备
+func RunBossEncounter(element)
+  ?debuffs.count > 15
+    ?TryCleansingPotion()
+      return
+  ?TryBossEngagePotions()
+    return
+  ?CinderwispDevour(true)
+    return
+  ?TryNamedBossEncounter(element)
+    return
+  ?BossDebuffRotate(element)
+    return
+  ?foe.state > 1
+    ?TryOffensePotion(Strength, true)
+      return
+  BossAbilities()
+  EquipBossFallback(element)

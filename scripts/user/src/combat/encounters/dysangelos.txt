@@ -1,0 +1,53 @@
+#layer orchestration
+import data
+import equip
+import generic
+import potion/use
+import constants/distance
+import utils/distance
+import utils/item
+
+// --- Dysangelos（Rocky 三阶段：phase1 / phase2 / phase3）---
+//
+// dysangelosBuffTable 行: [foe 当前元素, 需补的克制元素]
+
+func FightDysangelosPhase3()
+  ?foe.state = 32 & foe.time = 0 & foe.damage < 3
+    ?TryHeavyHammerActivate()
+      return
+  for pair : dysangelosBuffTable
+    ?foe = pair[0] & foe.buffs.string ! pair[1]
+      EqDual(pair[1])
+      return
+  EqDual(CounterElement())
+
+func FightDysangelosPhase2()
+  var el = CounterElement()
+  ?loc.stars >= 2
+    EqDpDi(el)
+  :
+    EqDual(el)
+
+func FightDysangelosPhase1()
+  ?EqMind(33, 26, mindTimeGte, false, false)
+    return
+  EquipVigorMeleeOrCrossbow()
+
+export func FightDysangelos()
+  ?foe.state = 32 & foe.time >= 1
+    ?TryOffensePotion(Strength, true)
+      return
+  ?EqMind(115, 76, mindTimeEq, false, true)
+    return
+  ?EqMind(32, 67, mindTimeGt, false, true)
+    return
+  ?foe = phase3
+    FightDysangelosPhase3()
+    return
+  ?foe = phase2
+    FightDysangelosPhase2()
+    return
+  ?foe = phase1
+    FightDysangelosPhase1()
+    return
+  FightDysangelosPhase1()

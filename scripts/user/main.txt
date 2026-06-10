@@ -1,0 +1,1228 @@
+// 意念之石启动之后,可以持续执行它所收到的指令.
+// 指令必须使用写入石之脚本.
+// 其他信息请见:StoneStoryRPG.com/stonescript.
+// ——贤者贝赛拉
+
+// 通用万能 Stonescript 脚本 by.steve02081504
+
+// ===== 开关 =====
+var speedRun = false // true=竞速：不采集、不图鉴、超时自动 Leave
+var useAutoPotion = true // false=关闭 loop 末尾基础自动药水
+
+var finisherWeapon = "" // 终结武器 equip id；空=不启用
+var finisherCooldown = "" // cooldown id，与上行同填才启用
+var finisherLastHitOnly = false // true=仅残血时激活终结技R
+
+var bestiaryReset = false // true=loc.begin 清空图鉴 storage
+var bestiaryDebug = false // true=打印 foeKey/NeedsBestiaryScan
+
+//
+var bq = [["aether","vigor"],["fire","aether"],["vigor","poison"],["poison","ice"],["ice","fire"]]
+var bd = [["damage","morel",0.25],["damage","yeti",0.15],["damage","rocky",0],["chill","morel",0.1],["chill","rocky",0.1],["dot","morel",0.1],["dot","yeti",0.15],["dot","pallas",0.05],["dot","rocky",0.05],["feeble","shroom",0.15],["feeble","rocky",0.15]]
+func fe()
+  ?item.left.state = 3
+    ?item.left ! sight
+      equipL stone throwing
+      equipL @item.left@
+  ?item.right.state = 3
+    ?item.right ! sight
+      equipR shield *0*
+      equip @item.right@
+func ab()
+  return loc = temple & foe = acronian
+func eq()
+  ?loc = cave | loc = temple
+    return "ice"
+  ?loc = fungus | loc = forest | loc = shroom
+    return "poison"
+  ?loc = crypt | loc = halls | loc = haunted | loc = hall | loc = undead
+    return "vigor"
+  ?loc = mine | loc = bronze
+    return "aether"
+  ?loc = icy
+    return "fire"
+  return "vigor"
+var as = false
+var ar = true
+var dd = -1
+var de = -1
+var bz = -1
+var q = -1
+func aw()
+  bz = -1
+  q = -1
+  dd = -1
+  de = -1
+func bj()
+  return foe.distance <= 10
+func bi()
+  return foe.distance > 10
+func u()
+  return foe.distance < 11
+func ce()
+  return foe.distance > 17
+func fi()
+  return foe = undamageable | (foe.hp <= 0 & foe.armor <= 0)
+func eg()
+  return foe.state = 0 | fi()
+func ei()
+  return foe = flying | foe = mosquito
+func cs()
+  return foe = immune_to_ranged | eg()
+func et()
+  return !eg() & foe.state > 1
+func ff(a)
+  return item.GetCooldown(a) <= 0 & item.CanActivate()
+func db()
+  ?item.right ! empty & item.right.state = 2
+    return true
+  ?item.left ! empty & item.left.state = 2
+    return true
+  return false
+func fx(a)
+  ?item.right = @a@ & item.right.state = 2
+    activate R
+    return true
+  return false
+func fa(a)
+  return a >= 0 & totaltime < a
+func ds(a, b, c)
+  ?!c & foe = boss
+    return false
+  ?foe.count < a
+    return false
+  ?foe = spawner
+    return false
+  ?b > 0 & foe.distance > b
+    return false
+  ?item.GetCount("blade of the fallen god") <= 0 & item.right ! blade of the fallen god
+    return false
+  ?!ff("blade")
+    return false
+  return true
+func v()
+  ?loc.averageTime <= 0
+    return false
+  var fc = (loc.averageTime - totaltime) / 30
+  return fc <= 120 & fc >= 90
+func cr(a, b, c, d)
+  ?!ds(a, b, c)
+    return false
+  ?!d & v()
+    return false
+  return true
+func em(a, b, c, d)
+  ?fx("blade of the fallen god")
+    ?eg() | bi()
+      return false
+    return true
+  ?!cr(a, b, c, d)
+    return false
+  equip blade of the fallen god
+  activate R
+  return true
+func es(a, b)
+  var ek = string.Split(b, ",")
+  for buffStr : ek
+    var ex = string.Split(buffStr, ":")
+    ?Type(ex) = Type([]) & ex.Count() = 4
+      ?string.IndexOf(ex[1], a) > -1
+        return int.Parse(ex[2])
+  return 0
+func fl()
+  ?maxhp <= 0
+    return 1
+  return (hp) / (maxhp)
+func fk(a)
+  return fl() < a
+func fj(a)
+  return fl() > a
+func da()
+  ?foe.maxhp + foe.maxarmor <= 0
+    return 1
+  return ((foe.hp + foe.armor)) / ((foe.maxhp + foe.maxarmor))
+func bh(a)
+  dd = totaltime + 60
+  equip @a@
+func cx(a)
+  ?item.GetCount("mind") <= 0
+    return false
+  equipL mind
+  dd = totaltime + 60
+  ?a
+    de = totaltime + 60
+  return true
+func dk()
+  ?item.GetCount("triskelion") > 0
+    equipL triskelion
+    equipR shield
+    return true
+  ?item.GetCount("shield") > 0
+    equipR shield
+    return true
+  return false
+func cd()
+  equipL hammer
+  equipR shield
+func bf(a)
+  ?cw()
+    ?a = ""
+      equipL hammer
+    :
+      equipL @a + " hammer"@
+    return true
+  return false
+func fg(a)
+  equipL @a + " hammer"@
+  equipR @a + " shield"@
+func fv(a)
+  ?cs()
+    fg(a)
+    return
+  bh(a + " crossbow")
+func fh(a)
+  bh(a + " staff")
+func ac(a)
+  equipR @a + " wand"@
+  equipL @a + " shield"@
+func fs(a)
+  var fo = "dI " + a + " sword"
+  var fp = "dP " + a + " sword"
+  ?item.GetCount(@fp@) > 0 & item.GetCount(@fo@) > 0
+    equipL dP @a + " sword"@
+    equipR dI @a + " sword"@
+    return true
+  ez(a)
+func fy(a)
+  var fo = "dI " + a + " sword"
+  ?item.GetCount(@fo@) > 0
+    equipL @a + " sword"@
+    equipR dI @a + " sword"@
+    return true
+  fs(a)
+func ft(a)
+  equipL @a + " sword"@
+  equipR @a + " sword"@
+func ez(a)
+  ft(a)
+  var ga = a + " shield"
+  ?item.GetCount(@ga@) > 0
+    equipR @ga@
+  return true
+func j()
+  ?foe.distance > 17 & !cs()
+    equip vigor crossbow
+    return
+  equipL vigor sword
+  equipR vigor sword
+func dm(a, b)
+  ?a < 0
+    return true
+  ?b = 1
+    return foe.time = a
+  ?b = 0
+    return foe.time >= a
+  ?b = 2
+    return foe.time > a
+  return true
+func fu(a, b, c, d, e)
+  ?foe.a ! a
+    return false
+  ?!dm(b, c)
+    return false
+  ?d & item.GetCooldown("mind") > 0
+    return false
+  ?cx(e)
+    return true
+  return false
+func cw()
+  ?item.GetCount("bashing shield") <= 0
+    return false
+  ?ff("bash")
+    equipR bashing shield
+    return true
+  return false
+func cy()
+  ?armor >= 14
+    return false
+  ?item.GetCount("compound shield") > 0
+    equipR compound shield
+    return true
+  return false
+func af()
+  ?fx("heavy hammer")
+    return true
+  ?item.GetCount("heavy hammer") <= 0 & item.right ! heavy hammer
+    return false
+  ?bi()
+    return false
+  ?item.right = heavy hammer & item.GetCooldown("heavy_hammer") > 0
+    equip heavy hammer
+    return true
+  ?ff("heavy_hammer")
+    equip heavy hammer
+    activate R
+    return true
+  return false
+func co(a)
+  ?a
+    return af()
+  ?item.GetCount("heavy hammer") <= 0
+    return false
+  equip heavy hammer
+  return true
+func cp()
+  return fk(0.6) & foe.distance > 10 & foe.distance <= 17
+func bg(a)
+  ?fk(0.7)
+    ac(a)
+  :
+    fh(a)
+  return true
+func ct()
+  ?item.potion ! Healing & item.potion ! auto
+    return false
+  ?hp < 7
+    activate potion
+  return true
+func bv()
+  ?item.potion ! Cleansing
+    return false
+  activate potion
+  return true
+func bw()
+  ?item.potion ! Defensive
+    return false
+  ?hp < 5
+    activate potion
+    return true
+  ?armor < 2 & fk(0.7)
+    activate potion
+  return true
+func bm()
+  return buffs.GetTime("berserk") > 0 | buffs.GetTime("lucky") > 0 | buffs.GetTime("strength") > 0
+func cv(a, b)
+  ?item.potion ! a | bm()
+    return false
+  ?b
+    activate potion
+    return true
+  return false
+func bo()
+  ?item.potion ! Experience
+    return false
+  ?foe.count > 3 & foe ! boss & fj(0.8)
+    activate potion
+  return true
+func ck()
+  ?item.potion ! Vampiric
+    return false
+  ?et() & foe ! boss & fk(0.85) & hp > 5
+    activate potion
+  return true
+func ap()
+  ?item.potion ! Invisibility
+    return false
+  ?foe.count > 2 & fk(0.3)
+    activate potion
+  return true
+func fm()
+  ?!item.CanActivate()
+    return
+  ?item.potion = empty
+    return
+  ?ct()
+    return
+  ?debuffs.count > 0 | fk(0.5)
+    ?bv()
+      return
+  ?bw()
+    return
+  ?cv(Strength, foe.maxarmor > 0 & foe.distance < 15)
+    return
+  ?bo()
+    return
+  ?cv(Lightning, foe.count >= 4)
+    return
+  ?ck()
+    return
+  ap()
+func ep(a)
+  for n : a
+    ?foe = @n@
+      return true
+  return false
+func av(a)
+  ?a = "shroom"
+    return ep(["bolesh", "morel", "yeti"])
+  ?a = "rocky"
+    return loc = rocky
+  return foe = @a@
+func be(a)
+  for row : bd
+    ?row[0] = a & av(row[1])
+      return row[2]
+  return 0
+func r(a)
+  ?ep(["poena", "guardian", "nagaraja"])
+    return true
+  ?a = "feeble" & ep(["pallas"])
+    return true
+  ?a ! "dot" & a ! "feeble" & ep(["bolesh", "pallas"])
+    return true
+  ?a = "dot" & ep(["bolesh"])
+    return true
+  return false
+func s()
+  return foe.buffs.string = protection | bm()
+func er(a)
+  return ce() | s() | (foe = legless & a ! "feeble") | dp(a)
+func au(a)
+  for row : [["chill", "yeti"]]
+    ?row[0] = a & foe = row[1]
+      return true
+  return false
+func dp(a)
+  ?!foe = boss
+    return false
+  ?r(a) | au(a)
+    return true
+  var ey = be(a)
+  ?ey > 0 & da() <= ey
+    return true
+  return false
+func ec(a, b, c, d)
+  ?er(b)
+    return false
+  ?d ! ""
+    ?foe.debuffs.string = @d@
+      return false
+  ?b = "damage" & foe = immune_to_debuff_damage
+    return false
+  ?b = "chill"
+    ?es("chill", foe.debuffs.string) >= 6
+      return false
+    ?foe = immune_to_debuff_chill
+      return false
+  equipR mask
+  equipL @c + a + " sword"@
+  return true
+func br(a, b)
+  ?foe.debuffs.string = feeble
+    return false
+  ?a
+    ?dp("feeble")
+      return false
+  :
+    ?er("feeble")
+      return false
+  ?!ff("mask")
+    return false
+  equipR mask
+  activate R
+  ?b
+  return true
+func cn(a)
+  ?db()
+    return false
+  ?s()
+    return false
+  ?bi()
+    return false
+  for row : [["damage","dP","damage"],["dot","dF","dot"],["chill","dI",""]]
+    ?ec(a, row[0], row[1], row[2])
+      return true
+  ?foe.maxarmor > 50 & foe.debuffs.string ! fatigue
+    ?af()
+      return true
+  return br(false, true)
+func dn()
+  ?foe = boss | foe = magic_resist | ei()
+    return false
+  ?foe = immune_to_physical | foe = immune_to_ranged
+    return false
+  ?foe.maxarmor <= 0
+    return false
+  ?foe.maxarmor > foe.maxhp / 2
+    return true
+  ?foe.maxhp + foe.maxarmor <= 120
+    return true
+  return false
+func di()
+  for i = 0..5 - 1
+    var fz = ["vigor", "aether", "fire", "ice", "poison"][i]
+    var fn = ["poison", "vigor", "aether", "fire", "ice"][i]
+    ?foe.buffs.string ! ("adaptive_defense_" + fn) & foe = (" " + fz + " ")
+      return fn
+  for i = 0..5 - 1
+    ?foe = ["vigor", "aether", "fire", "ice", "poison"][i]
+      return ["poison", "vigor", "aether", "fire", "ice"][i]
+  return "vigor"
+func ad(a)
+  ?foe.maxarmor > 0 & bj()
+    ?af()
+      return true
+  ?bf(a)
+      return true
+  fg(a)
+  return true
+func i(a)
+  bg(a)
+  return true
+func ax(a)
+  ?bi()
+    return false
+  ?fk(0.7) | da() < 1
+    bg(a)
+    return true
+  return false
+func t(a, b)
+  fg(a)
+  ?b & cp() & item.GetCount("ouroboros") > 0
+    equipL ouroboros
+  return true
+func bc(a, b)
+  ?foe = magic_resist
+    return ad(a)
+  ?foe = immune_to_physical
+    return i(a)
+  ?foe = magic_vulnerability
+    return ax(a)
+  ?ei() & !cs()
+    fv(a)
+    return true
+  ?foe = immune_to_ranged | eg()
+    return t(a, b)
+  return false
+func ay(a)
+  ?ce()
+    return
+  ?bi()
+    fg(a)
+    return
+  ?foe.maxarmor >= 100
+    ?af()
+      return
+    co(false)
+    return
+  fg(a)
+func eb(a)
+  ?bc(a, true)
+    return
+  ?dn()
+    ay(a)
+    return
+  fg(a)
+  ?cp() & item.GetCount("ouroboros") > 0
+    equipL ouroboros
+  cy()
+var at = false
+var cl = false
+func k()
+  ?item.right ! empty
+    return item.right = bardiche | item.right = heavy hammer | item.right = quarterstaff | item.right = blade of the fallen god | item.right = crossbow
+  return false
+func bu()
+  cl = false
+  ?item.right ! empty & item.right = blade of the fallen god & foe
+    cl = eg() | bi() | foe.count < 6
+  at = k()
+  ?!at
+    at = db()
+func aa()
+  ?item.GetCount("quarterstaff") <= 0
+    return false
+  ?item.right = quarterstaff & item.right.state = 2
+    equip quarterstaff
+    activate R
+    return true
+  ?ff("quarterstaff")
+    equip quarterstaff
+    activate R
+    return true
+  return false
+func ae()
+  ?item.GetCount("star") > 0
+    equipL star
+    return true
+  return false
+func bn()
+  ?!!fa(dd) & !fa(de) & !speedRun & foe & foe.count >= 10 | item.GetCount("dashing") <= 0
+    return false
+  equipR dashing
+  ae()
+  return true
+func an()
+  ?aa()
+    return true
+  return false
+func n()
+  ?an()
+    return true
+  return ae()
+func z()
+  ?!at
+    return false
+  ?an()
+    return true
+  ?bn()
+    return true
+  ?ae()
+    return true
+  return false
+func du(a)
+  ?fu(32, 6, 0, true, false)
+    ?armor < foe.damage
+      return
+  ft(a)
+func bk()
+  return foe = bomb cart & foe.distance < 7
+func dv()
+  ?bk()
+    cx(false)
+    return true
+  return false
+func e()
+  ?!item.CanActivate()
+    return false
+  return cv(Strength, true)
+func c(a)
+  ?debuffs.count <= a
+    return false
+  return bv()
+func a()
+  ?debuffs.count <= 0 | !fk(0.5)
+    return false
+  return bv()
+func d(a)
+  fv(a)
+func ed(a)
+  ?e()
+    return
+  ?loc.stars >= 3
+    ?fu(32, -1, 0, true, true)
+      return
+    ?foe.distance <= 10
+      fy(a)
+      return
+  fv(a)
+func dz(a)
+  cw()
+  d(a)
+func aj()
+  ?foe.state = 32 & foe.time = 0 & foe.damage < 3
+    ?af()
+      return
+  for pair : bq
+    ?foe = pair[0] & foe.buffs.string ! pair[1]
+      ft(pair[1])
+      return
+  ft(di())
+func ah()
+  var fz = di()
+  ?loc.stars >= 2
+    fs(fz)
+  :
+    ft(fz)
+func ag()
+  ?fu(33, 26, 0, false, false)
+    return
+  j()
+func cz()
+  ?foe.state = 32 & foe.time >= 1
+    ?cv(Strength, true)
+      return
+  ?fu(115, 76, 1, false, true)
+    return
+  ?fu(32, 67, 2, false, true)
+    return
+  ?foe = phase3
+    aj()
+    return
+  ?foe = phase2
+    ah()
+    return
+  ?foe = phase1
+    ag()
+    return
+  ag()
+func eu(a)
+  d(a)
+func eu(a)
+  d(a)
+func dw()
+  ?a()
+    return
+  ?cv(Strength, true)
+    return
+  ?fu(32, 35, 1, false, true)
+    return
+  ?fu(33, 20, 0, true, true)
+    return
+  ?foe.distance > 10
+    fv("aether")
+    return
+  ?foe.armor > 0
+    ?af()
+      return
+    equipL aether hammer
+    equipR aether shield
+    return
+  ft("aether")
+func ea(a)
+  ?foe.armor = 0
+    ?cv(Strength, true)
+      return
+  ?foe = pillar | foe = wall
+    fv(a)
+    ?foe = wall & item.GetCount("moondial") > 0
+      equipR moondial
+    return
+  ?fu(133, -1, 0, true, true)
+    return
+  ?foe.distance > 2 & foe.distance < 7 & foe.state ! 133
+    equip shovel
+    return
+  ?foe.state = 133
+    fh(a)
+    return
+  ?loc.stars >= 3
+    equipL @a + " wand"@
+    equipR dI @a + " wand"@
+    return
+  fh(a)
+func en(a)
+  ?foe.armor > 0
+    co(false)
+    return
+  ?foe.maxarmor > 0 & u()
+    ?bf("")
+      return
+  cd()
+func g()
+  ?bz = totaltime & q > bz
+    bz = q
+func al()
+  ?foe.state = 31 | (foe.state = 33 & foe.time = 0)
+    ?bz > totaltime
+      q = totaltime + 25
+    :
+      bz = totaltime + 25
+func am()
+  ?!bz > totaltime
+    return false
+  ?bz - totaltime <= 6
+    bz = totaltime + 6
+  dk()
+  return true
+func dx(a)
+  ?c(0)
+    return
+  ?foe.distance <= 10
+    ?cv(Strength, true)
+      return
+  g()
+  al()
+  ?fu(112, 55, 0, true, true)
+    return
+  ?foe.state = 105
+    fv(a)
+    return
+  ?am()
+    return
+  ?item.GetCooldown("mind") > 0 | debuffs.count > 3
+    fv(a)
+    return
+  fy(a)
+func ee(a)
+  ?foe = legless
+    ?fu(32, 30, 0, false, true)
+      return
+    ?foe.count > 1
+      fv(a)
+      return
+    fh(a)
+    return
+  ?fu(32, 45, 0, false, true)
+    return
+  ?foe.armor > 0
+    cd()
+    return
+  fg(a)
+func eo(a)
+  ?debuffs.string ! stun & foe.state ! 2
+    ?cv(Strength, true)
+      return
+  ?foe.buffs.string = mirror & loc.stars >= 3
+    ?ff("wand_vigor")
+      equip reset wand
+      activate R
+      return
+  ?em(3, 0, true, true)
+    return
+  ?loc.stars >= 3 & item.GetCount("stone hammer") > 0
+    equipL stone hammer
+    equipR stone hammer
+    return
+  ?bf("")
+    return
+  equip grap
+  equip hammer
+func eu(a)
+  d(a)
+func ef(a)
+  ?fu(33, -1, 0, false, false)
+    return
+  ?foe.armor > 0
+    co(false)
+    return
+  equipL poison sword
+  equipR poison shield
+func eu(a)
+  d(a)
+func dl(a)
+  ?fu(33, 15, 0, false, false)
+    return
+  ?loc.stars >= 3
+    fs(a)
+    return
+  equipL @a + " sword"@
+  equipR hatchet
+func f()
+  ?bk()
+    return true
+  ?ab()
+    return true
+  ?foe = boss
+    return true
+  return false
+func ao(a)
+  ?dv()
+    return true
+  ?ab()
+    du(a)
+    return true
+  ?foe = boss
+    cq(a)
+    return true
+  return false
+func cj(a)
+  ?db()
+    return true
+  ?bc(a, false)
+    return true
+  return false
+func o(a)
+  ?foe.maxarmor > 0 & u()
+    ?bf(a)
+      return true
+  ?foe.debuffs.count = 0 & !dp("damage") & !es("debuff_duration_damage", debuffs.string) + es("spider_debuff_damage", debuffs.string) > 7 & item.GetCount("dP sword") > 0
+    equipR sword dP
+    return true
+  return false
+func l(a)
+  ?!cy()
+    equipR @a + " shield"@
+  ?fk(0.8) & foe.distance < 8
+    equipL sword dL
+  :
+    equipL @a + " hammer"@
+func cc(a)
+  ?cj(a)
+    return
+  ?o(a)
+    return
+  l(a)
+func b(a)
+  ?foe = nagaraja
+    dx(a)
+    return true
+  ?loc = rocky & (foe = boss | foe = phase1 | foe = phase2 | foe = phase3)
+    cz()
+    return true
+  ?foe = guardian
+    dw()
+    return true
+  return false
+func bx(a)
+  ?foe = bolesh
+    ed(a)
+    return true
+  ?foe = poena
+    eo(a)
+    return true
+  ?foe = xyloalgia
+    dl(a)
+    return true
+  ?loc = deadwood & foe = phase1
+    dl(a)
+    return true
+  ?foe = enoki
+    eu(a)
+    return true
+  ?foe = morel
+    en(a)
+    return true
+  ?loc = fungus | loc = shroom & foe = phase1
+    ef(a)
+    return true
+  return false
+func cu(a)
+  ?foe = yeti
+    ea(a)
+    return true
+  ?foe = skinless | foe = legless
+    ee(a)
+    return true
+  ?foe = ceiling
+    dz(a)
+    return true
+  ?foe = puff
+    eu(a)
+    return true
+  ?foe = snail
+    eu(a)
+    return true
+  ?foe = epic
+    eu(a)
+    return true
+  return false
+func aq(a)
+  ?b(a)
+    return true
+  ?bx(a)
+    return true
+  ?cu(a)
+    return true
+  return false
+func bb()
+  ?foe.state <= 1
+    return false
+  ?cv(Lightning, foe.count > 1)
+    return true
+  ?cv(Lucky, fj(0.5))
+    return true
+  ?cv(Berserk, fj(0.6))
+    return true
+  return false
+func cq(a)
+  ?debuffs.count > 15
+    ?bv()
+      return
+  ?bb()
+    return
+  ?CinderwispDevour(true)
+    return
+  ?aq(a)
+    return
+  ?cn(a)
+    return
+  ?foe.state > 1
+    ?cv(Strength, true)
+      return
+  BossAbilities()
+  cc(a)
+func m()
+  ?cl
+    ?!as
+      z()
+    return true
+  return false
+func bt()
+  ?cs() & item.right = crossbow
+    return true
+  ?cl
+    return true
+  return false
+func az(a)
+  ?GenericAbilities()
+    return
+  ?bt()
+    return
+  ?db() & !(item.left = ouroboros & (bj() | !fk(0.6)))
+    return
+  ?fi()
+    ?!as
+      z()
+    return
+  eb(a)
+  ?dn() & ce() & !as
+    z()
+func do()
+  var fq = di()
+  ?ao(fq)
+    return
+  ?as
+    return
+  ?m()
+    return
+  az(fq)
+func dh(a)
+  ?a = "experience"
+    brew wood
+    return
+  ?a = "strength"
+    brew stone
+    return
+  ?a = "healing"
+    brew tar
+    return
+  ?a = "lightning"
+    brew bronze
+    return
+  ?a = "invisibility"
+    brew wood + stone
+    return
+  ?a = "cleansing"
+    brew wood + tar
+    return
+  ?a = "berserk"
+    brew wood + bronze
+    return
+  ?a = "defensive"
+    brew stone + tar
+    return
+  ?a = "lucky"
+    brew stone + bronze
+    return
+  ?a = "vampiric"
+    brew tar + bronze
+    return
+func ak()
+  var fd = res.stone
+  var ew = res.bronze
+  var fr = res.wood
+  ?fd > 1500 | (fd > fr & fd > ew)
+    return "defensive"
+  ?ew > 1500 | (ew > fd & ew > fr)
+    return "vampiric"
+  ?fr > 1500 | (fr > fd & fr > ew)
+    return "cleansing"
+  return "healing"
+func dg()
+  ?item.potion ! empty
+    return
+  ?loc = mine | loc = bronze
+    dh("strength")
+    return
+  ?loc = icy
+    dh("lucky")
+    return
+  ?loc = temple
+    dh("berserk")
+    return
+  dh(ak())
+var fb = []
+var ej = "fb"
+func dr(a)
+  ?a & bestiaryReset
+    storage.Delete(ej)
+    fb.Clear()
+    return
+  ?storage.Has(ej)
+    fb = string.Split(storage.Get(ej), ";")
+  :
+    fb.Clear()
+func df()
+  ?foe.id ! ""
+    return foe.id
+  ?foe.name ! ""
+    return foe.name
+  return ""
+func cm(a)
+  return fb.Contains(a)
+func cg()
+  ?!foe
+    return false
+  var fw = df()
+  return fw ! "" & !cm(fw)
+func dy(a)
+  ?a
+    return item.right = sight
+  return item.left = sight
+func bs(a)
+  ?!dy(a)
+    return false
+  ?a
+    return item.right.state = 2 | item.right.state = 3
+  return item.left.state = 2 | item.left.state = 3
+func ba(a)
+  ?!dy(a)
+    return false
+  ?a
+    return item.right.state = 4 | (item.right.state = 0 & item.GetCooldown("sight") > 0)
+  return item.left.state = 4 | (item.left.state = 0 & item.GetCooldown("sight") > 0)
+func dj(a)
+  ?a
+    equipR sight
+  :
+    equipL sight
+func ca(a)
+  ?a
+    activate R
+  :
+    activate L
+func dt()
+  ?!bestiaryDebug
+    return
+  >`0,1,fb foe=@df()@ needScan=@cg()@
+func by(a)
+  dj(a)
+  ?!dy(a)
+    return false
+  ?bs(a)
+    return true
+  ?item.CanActivate()
+    ca(a)
+  return true
+func dc()
+  ?item.GetCount("sight") <= 0
+    return false
+  ?by(true)
+    return true
+  return by(false)
+func ev()
+  var fw = df()
+  ?fw = ""
+    return
+  ?!ba(true) | ba(false)
+    return
+  ?!cm(fw)
+    fb.Add(fw)
+    storage.Set(ej, string.Join(";", fb))
+func cb()
+  ev()
+  dt()
+  ?cg() & foe.distance <= 22
+    dc()
+func cf()
+  ?!harvest | harvest.distance >= 10
+    return false
+  ?foe & foe ! boss
+    return false
+  ?!foe
+    return true
+  ?foe.distance < 18
+    return false
+  return harvest.distance < foe.distance & bi()
+func dq(a, b)
+  ?harvest.distance < 10
+    ?a
+      equipR hatchet
+    :
+      equip shovel
+    ?harvest.distance < 7
+      ?ff(@b@)
+        activate R
+func eh()
+  ?harvest = Tree
+    dq(true, "hatchet")
+  :?harvest = Boulder
+    dq(false, "shovel")
+func bp()
+  ?!fk(0.75)
+    return false
+  ?bi()
+    return false
+  ?item.GetCount("mind") <= 0
+    return false
+  ?item.GetCooldown("mind") > 0
+    return false
+  equipL mind
+  dd = totaltime + 60
+  de = totaltime + 60
+  return true
+func h()
+  ?fi()
+    return false
+  ?ei()
+    return false
+  ?et() & foe.distance > 16 & foe.distance <= 17
+    return false
+  ?db() & !(item.right = quarterstaff & item.right.state = 2)
+    return false
+  return bi()
+func p()
+  ?cl
+    z()
+    return true
+  ?at & (fi() | bi() | foe.count < 6)
+    z()
+    return true
+  return false
+func ch()
+  ?as
+    return
+  ?p()
+    return
+  ?bp()
+    return
+  ?item.right = quarterstaff & item.right.state = 2
+    an()
+    return
+  ?ce()
+    z()
+    return
+  ?foe.distance >= 11 & foe.distance <= 16
+    z()
+    bn()
+    return
+  ?fi()
+    z()
+    return
+  ?at
+    z()
+    return
+  dk()
+func ci()
+  ?!foe & ai.walking
+    n()
+    return
+  fg(eq())
+func x()
+  ?as
+    return
+  ?!foe
+    return
+  ?!ar
+    return
+  ?!h()
+    return
+  ch()
+func y()
+  ?as
+    return
+  ?pickup.distance < 10
+    ae()
+func bl()
+  aw()
+  dg()
+  dr(true)
+func w()
+  as = f()
+  ar = !dn()
+?loc.begin | loc.loop
+  ?loc.begin
+    bl()
+  :
+    dr(false)
+fe()
+w()
+bu()
+?speedRun & loc.averageTime > 0 & (totaltime) / (loc.averageTime) > 1.15
+  loc.Leave()
+? !speedRun
+  cb()
+  ?cg() & foe.distance > 22
+    x()
+? !bs(true) | bs(false)
+  ? !speedRun
+    ?cf()
+      eh()
+  x()
+  ?foe
+    do()
+  y()
+  ci()
+? useAutoPotion
+  fm()

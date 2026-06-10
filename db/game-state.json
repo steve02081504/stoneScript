@@ -1,0 +1,218 @@
+{
+  "entries": [
+    {
+      "example": "?loc = caves\n  loadout 1",
+      "syntax": "?loc",
+      "summary_zh": "当前地点",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "loc.stars",
+        "loc.begin"
+      ],
+      "source": "manual:Game State",
+      "id": "loc"
+    },
+    {
+      "example": "?loc.stars > 5\n  equip vigor staff +13",
+      "syntax": "?loc.stars",
+      "summary_zh": "地点难度星级",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "loc"
+      ],
+      "source": "manual:Game State",
+      "id": "loc.stars"
+    },
+    {
+      "example": "var i\n?loc.begin\n  i = 0",
+      "syntax": "?loc.begin",
+      "summary_zh": "地点第一帧，用于重置变量",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "loc.loop"
+      ],
+      "source": "manual:Game State",
+      "id": "loc.begin"
+    },
+    {
+      "example": "var c=0\n?loc.loop\n  c++",
+      "syntax": "?loc.loop",
+      "summary_zh": "Ouroboros循环后第一帧",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "loc.begin"
+      ],
+      "source": "manual:Game State",
+      "id": "loc.loop"
+    },
+    {
+      "example": "?foe = mosquito\n  equip crossbow",
+      "syntax": "?foe",
+      "summary_zh": "当前目标敌人类型",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "foe.distance"
+      ],
+      "source": "manual:Game State",
+      "id": "foe"
+    },
+    {
+      "example": "?foe.distance > 8\n  equipL ouroboros",
+      "syntax": "?foe.distance",
+      "summary_zh": "与目标敌人距离",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "foe"
+      ],
+      "source": "manual:Game State",
+      "id": "foe.distance"
+    },
+    {
+      "example": ">\u0000,1,state=@foe.state@ time=@foe.time@",
+      "syntax": "?foe.state",
+      "summary_zh": "敌人动画状态(闪避调试)",
+      "doc": "docs/debugging.md",
+      "seeAlso": [
+        "foe.time"
+      ],
+      "source": "manual:Game State",
+      "id": "foe.state"
+    },
+    {
+      "example": "?foe.state=32 & foe.time=40\n  equipL mind",
+      "syntax": "?foe.time",
+      "summary_zh": "当前state已过帧数",
+      "doc": "docs/debugging.md",
+      "seeAlso": [
+        "foe.state"
+      ],
+      "source": "manual:Game State",
+      "id": "foe.time"
+    },
+    {
+      "example": "?foe=boss & foe.debuffs.count=0\n  equipR sword dP",
+      "syntax": "?foe.debuffs.count",
+      "summary_zh": "敌人debuff数量",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [],
+      "source": "manual:Game State",
+      "id": "foe.debuffs.count"
+    },
+    {
+      "example": "?hp < 7\n  activate potion",
+      "syntax": "?hp",
+      "summary_zh": "玩家当前生命",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "maxhp"
+      ],
+      "source": "manual:Game State",
+      "id": "hp"
+    },
+    {
+      "example": "?hp < maxhp & foe.distance < 7\n  equipL sword dL",
+      "syntax": "?maxhp",
+      "summary_zh": "玩家最大生命",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "hp"
+      ],
+      "source": "manual:Game State",
+      "id": "maxhp"
+    },
+    {
+      "example": "equipL @item.left@",
+      "syntax": "?item.left",
+      "summary_zh": "左手装备名",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "item.left.state"
+      ],
+      "source": "manual:Game State",
+      "id": "item.left"
+    },
+    {
+      "example": "?item.right=quarterstaff\n  activate R",
+      "syntax": "?item.right",
+      "summary_zh": "右手装备名",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "item.right.state"
+      ],
+      "source": "manual:Game State",
+      "id": "item.right"
+    },
+    {
+      "example": "?item.left.state=3\n  equipL stone throwing",
+      "syntax": "?item.left.state",
+      "summary_zh": "左手武器状态(2cast 3perf 4cd)",
+      "doc": "docs/patterns/aac.md",
+      "seeAlso": [
+        "aac"
+      ],
+      "source": "manual:Game State",
+      "id": "item.left.state"
+    },
+    {
+      "example": "?item.right= bardiche & item.right.state=2",
+      "syntax": "?item.right.state",
+      "summary_zh": "右手武器状态",
+      "doc": "docs/patterns/abilities.md",
+      "seeAlso": [
+        "abilities"
+      ],
+      "source": "manual:Game State",
+      "id": "item.right.state"
+    },
+    {
+      "example": "?pickup.distance < 10\n  equipL star",
+      "syntax": "?pickup.distance",
+      "summary_zh": "到目标拾取物距离",
+      "doc": "docs/patterns/mobility.md",
+      "seeAlso": [],
+      "source": "manual:Game State",
+      "id": "pickup.distance"
+    },
+    {
+      "example": "?harvest.distance < 10\n  equip hatchet",
+      "syntax": "?harvest.distance",
+      "summary_zh": "到最近可采集物距离",
+      "doc": "docs/patterns/mobility.md",
+      "seeAlso": [],
+      "source": "manual:Game State",
+      "id": "harvest.distance"
+    },
+    {
+      "example": "?time % 300 = 0\n  >10 sec",
+      "syntax": "?time",
+      "summary_zh": "当前地点帧号",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "totaltime"
+      ],
+      "source": "manual:Game State",
+      "id": "time"
+    },
+    {
+      "example": "?rng < 5000\n  >Heads",
+      "syntax": "?rng",
+      "summary_zh": "随机整数0-9999",
+      "doc": "docs/reference/game-state.md",
+      "seeAlso": [
+        "rngf"
+      ],
+      "source": "manual:Game State",
+      "id": "rng"
+    },
+    {
+      "example": "?key=leftBegin\n  x--",
+      "syntax": "?key",
+      "summary_zh": "自定义输入状态",
+      "doc": "docs/reference/custom-input.md",
+      "seeAlso": [],
+      "source": "manual:Game State",
+      "id": "key"
+    }
+  ],
+  "version": "manual-4.27.1"
+}

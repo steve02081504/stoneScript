@@ -1,0 +1,62 @@
+#layer orchestration
+#role facade
+import abilities
+import generic
+import travel
+import dedicated
+import state
+import constants/distance
+import utils/distance
+
+// --- 战斗路由：遭遇分发 → 能力 → 装备 ---
+//
+// 单帧流水线 RunCombatFrame：
+//   1. 定制遭遇（炸弹车 / Acronian / Boss）— 命中则整帧结束
+//   2. 仍处定制模式但未命中脚本 → 跳过泛用链
+//   3. smite 收刀 → 旅行装
+//   4. 泛用怪：GenericAbilities → 强制换装 → 施法等待 → GenericEquip
+
+// smite 收刀态：先切旅行装，本帧不再走泛用战斗链
+func RunTravelIfSmiteSheathed()
+  ?travelSmiteSheath
+    ?!dedicatedCombatActive
+      Travel_SwapToTravelGear()
+    return true
+  return false
+
+// 弩免疫却仍持弩，或 smite 收刀后需先换武器再继续
+func IsCrossbowBlockedByRangedImmune()
+  return ShouldSkipRanged() & item.right = crossbow
+
+func ShouldForceReequip()
+  ?IsCrossbowBlockedByRangedImmune()
+    return true
+  ?travelSmiteSheath
+    return true
+  return false
+
+// 泛用怪路线：能力优先，再装备；远距轻甲可边打边旅行
+func RunGenericCombatPath(element)
+  ?GenericAbilities()
+    return
+  ?ShouldForceReequip()
+    return
+  ?ShouldDeferForWeaponCast()
+    return
+  ?FoeGone()
+    ?!dedicatedCombatActive
+      Travel_SwapToTravelGear()
+    return
+  GenericEquip(element)
+  ?IsThinShellFoe() & FoeBeyondMidRange() & !dedicatedCombatActive
+    Travel_SwapToTravelGear()
+
+export func RunCombatFrame()
+  var element = CounterElement()
+  ?TryDedicatedEncounter(element)
+    return
+  ?dedicatedCombatActive
+    return
+  ?RunTravelIfSmiteSheathed()
+    return
+  RunGenericCombatPath(element)

@@ -1,0 +1,9 @@
+#layer L0
+// --- 距离带（格）---
+const closeRangeMax = 10
+const midRangeMin = 11
+const midRangeMax = 17
+const dashRangeMin = 11
+const dashRangeMax = 16
+const sightScanDist = 22
+const pickupMobilityMaxDist = 10

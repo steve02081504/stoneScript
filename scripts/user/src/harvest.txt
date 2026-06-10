@@ -1,0 +1,38 @@
+#role facade
+import constants/distance
+import constants/harvest
+import utils/distance
+import utils/item
+
+// ---------------------------------------------------------------------------
+// 模块：采集（Tree / Boulder）
+// 条件：近距 harvest、无近距非 Boss 怪、或怪足够远且 harvest 更近
+// ---------------------------------------------------------------------------
+
+export func Harvest_ShouldRun()
+  ?!harvest | harvest.distance >= closeRangeMax
+    return false
+  ?foe & foe ! boss
+    return false
+  ?!foe
+    return true
+  ?foe.distance < harvestFoeMinDist
+    return false
+  return harvest.distance < foe.distance & FoeBeyondCloseRange()
+
+// useHatchet: Tree 用 hatchet；Boulder 用 shovel
+func TryHarvestTool(useHatchet, cdKey)
+  ?harvest.distance < closeRangeMax
+    ?useHatchet
+      equipR hatchet
+    :
+      equip shovel
+    ?harvest.distance < harvestSwingDist
+      ?CdReady(@cdKey@)
+        activate R
+
+export func Harvest_Run()
+  ?harvest = Tree
+    TryHarvestTool(true, "hatchet")
+  :?harvest = Boulder
+    TryHarvestTool(false, "shovel")

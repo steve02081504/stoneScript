@@ -1,0 +1,46 @@
+{
+  "version": "manual-4.27.1",
+  "manualUrl": "https://stonestoryrpg.com/stonescript/manual.html",
+  "snapshot": "references/snapshots/manual-v4.27.1.html",
+  "cooldownIds": [
+    {"item": "Æther Talisman", "cooldownId": "talisman_aether"},
+    {"item": "Bardiche", "cooldownId": "bardiche"},
+    {"item": "Bashing Shield", "cooldownId": "bash"},
+    {"item": "Blade of the Fallen God", "cooldownId": "blade"},
+    {"item": "Cinderwisp Devour", "cooldownId": "cinderwisp"},
+    {"item": "Cultist Mask", "cooldownId": "mask"},
+    {"item": "Dashing Shield", "cooldownId": "dash"},
+    {"item": "Fire Talisman", "cooldownId": "talisman_fire"},
+    {"item": "Hatchet", "cooldownId": "hatchet"},
+    {"item": "Heavy Hammer", "cooldownId": "heavy_hammer"},
+    {"item": "Lollipop Wand", "cooldownId": "lollipop_wand"},
+    {"item": "Mind Stone", "cooldownId": "mind"},
+    {"item": "Quarterstaff", "cooldownId": "quarterstaff"},
+    {"item": "Skeleton Arm", "cooldownId": "skeleton_arm"},
+    {"item": "Voidweaver Devour", "cooldownId": "voidweaver"},
+    {"item": "Calamity Wand", "cooldownId": "wand_aether"},
+    {"item": "Explosive Wand", "cooldownId": "wand_fire"},
+    {"item": "Frost Wand", "cooldownId": "wand_ice"},
+    {"item": "Plague Wand", "cooldownId": "wand_poison"},
+    {"item": "Reset Wand", "cooldownId": "wand_vigor"},
+    {"item": "Gravity Wand", "cooldownId": "wand_stone"},
+    {"item": "Grasping Staff", "cooldownId": "staff_aether"},
+    {"item": "Infernal Staff", "cooldownId": "staff_fire"},
+    {"item": "Eternity Staff", "cooldownId": "staff_ice"},
+    {"item": "Berserker Staff", "cooldownId": "staff_poison"},
+    {"item": "Prevention Staff", "cooldownId": "staff_vigor"},
+    {"item": "Acrobatic Staff", "cooldownId": "staff_stone"},
+    {"item": "Shovel", "cooldownId": "shovel"}
+  ],
+  "sounds": {
+    "note": "完整列表见 manual Appendix B 或快照；单帧重复播放忽略，每秒超5次节流",
+    "common": ["confirm", "buy", "unequip", "equip", "error", "click", "pickup_success", "bardiche_cast", "quarterstaff_cast", "hatchet_cast", "sword_hit", "potion_healing"]
+  },
+  "music": {
+    "note": "完整列表见 manual Appendix C；用 music.Play(track)",
+    "samples": ["temple_0", "deadwood_0", "undead_crypt_0", "icy_ridge_0", "bronze_mine_0", "main_menu", "credits"]
+  },
+  "ambient": {
+    "ids": ["ambient_mines", "ambient_caves", "ambient_bronze_gate", "ambient_deadwood", "ambient_mushroom", "ambient_bridge", "ambient_icy", "ambient_cave", "ambient_rocky", "ambient_temple", "ambient_crypt", "ambient_haunted_gate", "ambient_pallas", "waterfall_a", "waterfall_b", "waterfall_c"]
+  }
+}

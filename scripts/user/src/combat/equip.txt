@@ -1,0 +1,199 @@
+#bridge mobility
+import data
+import state
+import constants/distance
+import constants/combat
+import constants/potion
+import utils/distance
+import utils/hp
+import utils/item
+
+// --- 装备原语（按元素/武器族组合，不含遭遇路由）---
+//
+// 命名：Eq* = 按克制元素 element 一键换装；Equip* = 单件或带 dash/mind 副作用
+// dP/dI = debuff 剑前缀（damage / chill）
+//
+// 分组：冻结包装 → 旅行/盾 → 元素套组 → mind 时序 → 重锤/ouroboros
+
+// --- 冻结包装 ---
+export const mindTimeGte = 0 // foe.time >= minTime
+export const mindTimeEq = 1  // foe.time = minTime
+export const mindTimeGt = 2  // foe.time > minTime
+const fastArmorShieldMax = 14
+
+func EquipWithDashFreeze(itemName)
+  dashFreezeUntil = totaltime + dashFreezeFrames
+  equip @itemName@
+
+func EquipMindFreeze(setMindFreezeToo)
+  ?item.GetCount("mind") <= 0
+    return false
+  equipL mind
+  dashFreezeUntil = totaltime + dashFreezeFrames
+  ?setMindFreezeToo
+    mindFreezeUntil = totaltime + dashFreezeFrames
+  return true
+
+export func EquipSpitDodge()
+  ?item.GetCount("triskelion") > 0
+    equipL triskelion
+    equipR shield
+    return true
+  ?item.GetCount("shield") > 0
+    equipR shield
+    return true
+  return false
+
+// --- 旅行 / 吐息 dodge ---
+export func EquipTravelDefault()
+  EqMelee(LocElement())
+
+func EquipHammerShield()
+  equipL hammer
+  equipR shield
+
+func EquipBashLeftHammer(element)
+  ?EquipBashShield()
+    ?element = ""
+      equipL hammer
+    :
+      equipL @element + " hammer"@
+    return true
+  return false
+
+// --- 元素套组（hammer/shield、弩/杖、双剑、debuff 剑组合）---
+func EqMelee(element)
+  equipL @element + " hammer"@
+  equipR @element + " shield"@
+
+func EqXbow(element)
+  ?ShouldSkipRanged()
+    EqMelee(element)
+    return
+  EquipWithDashFreeze(element + " crossbow")
+
+func EqStaff(element)
+  EquipWithDashFreeze(element + " staff")
+
+func EquipCounterWandShield(element)
+  equipR @element + " wand"@
+  equipL @element + " shield"@
+
+// 双手 debuff 剑：左 dP（damage）+ 右 dI（chill）；缺件时退化为 EqDualSh
+func EqDpDi(element)
+  var diSword = "dI " + element + " sword"
+  var dpSword = "dP " + element + " sword"
+  ?item.GetCount(@dpSword@) > 0 & item.GetCount(@diSword@) > 0
+    equipL dP @element + " sword"@
+    equipR dI @element + " sword"@
+    return true
+  EqDualSh(element)
+
+// 单持 dI（chill）副手；缺件时退化为 EqDpDi
+func EqDI(element)
+  var diSword = "dI " + element + " sword"
+  ?item.GetCount(@diSword@) > 0
+    equipL @element + " sword"@
+    equipR dI @element + " sword"@
+    return true
+  EqDpDi(element)
+
+func EqDual(element)
+  equipL @element + " sword"@
+  equipR @element + " sword"@
+
+func EqDualSh(element)
+  EqDual(element)
+  var sh = element + " shield"
+  ?item.GetCount(@sh@) > 0
+    equipR @sh@
+  return true
+
+func EquipVigorMeleeOrCrossbow()
+  ?foe.distance > midRangeMax & !ShouldSkipRanged()
+    equip vigor crossbow
+    return
+  equipL vigor sword
+  equipR vigor sword
+
+// --- mind 时序（EqMind 与 mindTime* 比较模式）---
+//
+// EqMind(foeState, minFoeTime, timeMode, requireMindReady, setMindFreezeToo)
+//   foeState：本帧 foe.state 须等于此值
+//   minFoeTime：foe.time 比较基准；-1 表示忽略时间
+//   timeMode：mindTimeGte / mindTimeEq / mindTimeGt
+//   requireMindReady：true 时 mind 须在冷却就绪
+//   setMindFreezeToo：true 时同时写入 mindFreezeUntil
+
+func FoeTimeMatches(minTime, timeMode)
+  ?minTime < 0
+    return true
+  ?timeMode = mindTimeEq
+    return foe.time = minTime
+  ?timeMode = mindTimeGte
+    return foe.time >= minTime
+  ?timeMode = mindTimeGt
+    return foe.time > minTime
+  return true
+
+func EqMind(state, minTime, timeMode, requireMindReady, setMindFreezeToo)
+  ?foe.state ! state
+    return false
+  ?!FoeTimeMatches(minTime, timeMode)
+    return false
+  ?requireMindReady & item.GetCooldown("mind") > 0
+    return false
+  ?EquipMindFreeze(setMindFreezeToo)
+    return true
+  return false
+
+func EquipBashShield()
+  ?item.GetCount("bashing shield") <= 0
+    return false
+  ?CdReady("bash")
+    equipR bashing shield
+    return true
+  return false
+
+func FastArmorShield()
+  ?armor >= fastArmorShieldMax
+    return false
+  ?item.GetCount("compound shield") > 0
+    equipR compound shield
+    return true
+  return false
+
+// --- 重锤 / ouroboros / 魔抗加成 ---
+func TryHeavyHammerActivate()
+  ?CastR("heavy hammer")
+    return true
+  ?item.GetCount("heavy hammer") <= 0 & item.right ! heavy hammer
+    return false
+  ?FoeBeyondCloseRange()
+    return false
+  ?item.right = heavy hammer & item.GetCooldown("heavy_hammer") > 0
+    equip heavy hammer
+    return true
+  ?CdReady("heavy_hammer")
+    equip heavy hammer
+    activate R
+    return true
+  return false
+
+func EquipHeavyHammer(tryActivate)
+  ?tryActivate
+    return TryHeavyHammerActivate()
+  ?item.GetCount("heavy hammer") <= 0
+    return false
+  equip heavy hammer
+  return true
+
+func OuroborosEquipOk()
+  return HpBelow(ouroborosHpRatio) & FoeWithinMidRange()
+
+func EquipMagicVulnBonus(element)
+  ?HpBelow(hpWandSwitchRatio)
+    EquipCounterWandShield(element)
+  :
+    EqStaff(element)
+  return true

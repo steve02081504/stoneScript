@@ -1,0 +1,114 @@
+#role facade
+import combat/equip
+import combat/state
+import combat/travel
+import constants/distance
+import constants/combat
+import constants/potion
+import utils/distance
+import utils/hp
+import utils/item
+
+// ---------------------------------------------------------------------------
+// 模块：移速（战斗冲刺 / 拾取 star / 无怪旅行）
+// 距离带见 constants/distance；对外入口 Mobility_Run*Phase
+// ---------------------------------------------------------------------------
+
+// 低血贴脸：mind 定身争取拉开距离
+func TryLowHpMindRetreat()
+  ?!HpBelow(hpRetreatRatio)
+    return false
+  ?FoeBeyondCloseRange()
+    return false
+  ?item.GetCount("mind") <= 0
+    return false
+  ?item.GetCooldown("mind") > 0
+    return false
+  equipL mind
+  dashFreezeUntil = totaltime + dashFreezeFrames
+  mindFreezeUntil = totaltime + dashFreezeFrames
+  return true
+
+// 本帧是否应尝试战斗向移速（距离/施法状态门控）
+func ShouldAttemptCombatMobility()
+  ?FoeGone()
+    return false
+  ?IsFlyingFoe()
+    return false
+  // 中距交战带内且可交战：交给近战，不 dash
+  ?CanEngage() & FoeInMidEngageBand()
+    return false
+  // 非 quarterstaff 续施时，施法中不换装
+  ?IsWeaponCasting() & !(item.right = quarterstaff & item.right.state = 2)
+    return false
+  return FoeBeyondCloseRange()
+
+func ShouldAttemptTravelMobility()
+  return !foe & ai.walking
+
+// smite 收刀或群怪不足时优先切旅行装
+func TryEarlyCombatTravelSwap()
+  ?travelSmiteSheath
+    Travel_SwapToTravelGear()
+    return true
+  ?travelNeedsWeaponSwap & (FoeGone() | FoeBeyondCloseRange() | foe.count < smiteMinFoes)
+    Travel_SwapToTravelGear()
+    return true
+  return false
+
+// 战斗向移速决策树（自上而下短路）
+// dedicatedCombatActive 时整段跳过；smite 收刀换装由 routing 与 mobility 分工读取 travelSmiteSheath
+func RunCombatMobility()
+  ?dedicatedCombatActive
+    return
+  ?TryEarlyCombatTravelSwap()
+    return
+  // 1. 低血贴脸 mind 定身
+  ?TryLowHpMindRetreat()
+    return
+  // 2. quarterstaff 续施
+  ?item.right = quarterstaff & item.right.state = 2
+    Travel_TryForwardDash()
+    return
+  // 3. 远距 / dash 带 / 怪已消失 → dash 或 star
+  ?FoeBeyondMidRange()
+    Travel_SwapToTravelGear()
+    return
+  ?FoeInDashBand()
+    Travel_SwapToTravelGear()
+    Travel_TryDashToFoe()
+    return
+  ?FoeGone()
+    Travel_SwapToTravelGear()
+    return
+  // 4. 仍持战斗武器 → 换装；否则吐息 dodge 装
+  ?travelNeedsWeaponSwap
+    Travel_SwapToTravelGear()
+    return
+  EquipSpitDodge()
+
+func RunTravelMobility()
+  ?ShouldAttemptTravelMobility()
+    Travel_TryTravelMobility()
+    return
+  EquipTravelDefault()
+
+export func Mobility_RunCombatPhase()
+  ?dedicatedCombatActive
+    return
+  ?!foe
+    return
+  ?!combatMobilityEnabled
+    return
+  ?!ShouldAttemptCombatMobility()
+    return
+  RunCombatMobility()
+
+export func Mobility_RunPickupPhase()
+  ?dedicatedCombatActive
+    return
+  ?pickup.distance < pickupMobilityMaxDist
+    Travel_TryStarMobility()
+
+export func Mobility_RunTravelPhase()
+  RunTravelMobility()
